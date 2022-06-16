@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@SQLDelete(sql= "UPDATE organizations SET deleted = true WHERE id=?")
+@SQLDelete(sql= "UPDATE organizations SET soft_delete = true WHERE id=?")
 @Where(clause = "deleted=false")
 @Table(name = "organizations")
 public class OrganizationEntity {
@@ -46,6 +46,7 @@ public class OrganizationEntity {
     @Column(columnDefinition = "TEXT")
     private String abautUsText;
 
+    @Column(name = "soft_delete")
     private boolean deleted = Boolean.FALSE;
 
     @CreationTimestamp
