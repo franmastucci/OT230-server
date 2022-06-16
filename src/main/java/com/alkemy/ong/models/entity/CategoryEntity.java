@@ -8,7 +8,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Table(name = "categories")
@@ -22,7 +22,7 @@ public class CategoryEntity {
     @Column(name = "category_id")
     private Long id;
 
-    @NotBlank(message = "Name can't be empty or void.")
+    @NotNull(message = "Name can't be empty or void.")
     private String name;
 
     @Column
