@@ -1,7 +1,6 @@
 package com.alkemy.ong.models.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
@@ -15,8 +14,11 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
 @SQLDelete(sql = "UPDATE user SET soft_delete = true WHERE id = ?")
-@Table(name = "user")
+@Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +27,13 @@ public class UserEntity {
 
     @NotNull
     @NotEmpty(message = "the first name can't be null")
-    @NotBlank(message = "the first name can't  be blank")
+    @NotBlank(message = "the first name can't be blank")
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @NotNull
     @NotEmpty(message = "the last name can't be null")
-    @NotBlank(message = "the last name can't  be blank")
+    @NotBlank(message = "the last name can't be blank")
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
@@ -53,8 +55,9 @@ public class UserEntity {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<RoleEntity> roleId;
 
+    @Column(name = "timeStamp")
     private Timestamp timestamp;
 
-    @Column(name = "soft_delete")
+    @Column(name = "soft_delete",columnDefinition = "boolean default false")
     private Boolean softDelete;
 }
