@@ -10,7 +10,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 
 @Entity
@@ -48,5 +48,5 @@ public class Members {
 
    @CreationTimestamp
    @Column(name = "creation_date" ,nullable = false, updatable = false)
-   private LocalDateTime create;
+   private Timestamp create;
 }
