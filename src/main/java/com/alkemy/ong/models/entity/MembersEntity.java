@@ -43,10 +43,10 @@ public class MembersEntity {
    @Column(nullable = false)
    private String description;
 
-   @Column(name = "is_active", nullable = false)
-   private boolean isActive;
+   @Column(name = "soft_delete", nullable = false)
+   private boolean softDelete;
 
    @CreationTimestamp
-   @Column(name = "creation_date" ,nullable = false, updatable = false)
-   private Timestamp create;
+   @Column(name = "time_stamp" ,nullable = false, updatable = false)
+   private Timestamp timeStamp;
 }
