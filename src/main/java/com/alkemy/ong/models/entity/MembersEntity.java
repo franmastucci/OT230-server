@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor @AllArgsConstructor
 @SQLDelete(sql = "UPDATE members SET is_active = false WHERE members_id = ?")
 @Where(clause = "is_active = false")
-public class Members {
+public class MembersEntity {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
