@@ -11,6 +11,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 @Entity
@@ -25,7 +26,7 @@ public class Members {
    @Column(name = "members_id", updatable = false)
    private Long id;
 
-   @Column(nullable = false, unique = true)
+   @Column(nullable = false, unique = true, length = 50)
    private String name;
 
    @Column(name = "facebook_url", unique = true)
