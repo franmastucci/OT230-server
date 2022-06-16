@@ -24,7 +24,7 @@ public class RoleEntity {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String Id;
+    private Long Id;
     
     @NonNull
     @Column(nullable = false)
