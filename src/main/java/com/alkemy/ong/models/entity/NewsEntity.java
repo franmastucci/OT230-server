@@ -47,7 +47,7 @@ public class NewsEntity {
 	private String image;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id", insertable = false, updatable = false)
+	@JoinColumn(name = "category_id", insertable = false, updatable = true)
 	private CategoryEntity category;
 
 	@CreationTimestamp

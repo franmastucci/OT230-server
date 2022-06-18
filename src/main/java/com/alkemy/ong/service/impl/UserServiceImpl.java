@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
         if(userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
             throw new UsernameNotFoundException("User already exists");
         }
-        List<RoleEntity> roles = roleRepository.findByName(RoleEnum.USER.getFullRoleName());
+        Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.USER.getFullRoleName());
         if (roles.isEmpty()) {
             throw new NullPointerException();
         }
