@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class UserMapper {
@@ -17,7 +18,7 @@ public class UserMapper {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserEntity toUserEntity(UserRequest userRequest, List<RoleEntity> roles) {
+    public UserEntity toUserEntity(UserRequest userRequest, Set<RoleEntity> roles) {
         return UserEntity.builder()
                 .firstName(userRequest.getFirstName())
                 .lastName(userRequest.getLastName())
