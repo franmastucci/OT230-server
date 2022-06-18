@@ -2,6 +2,7 @@ package com.alkemy.ong.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,6 +20,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/auth/register");
+        web.ignoring()
+           .antMatchers("/auth/register")
+           .antMatchers("/users/**");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf();
+        http.authorizeRequests()
+           .antMatchers("/auth/register").permitAll()
+           .antMatchers("/users/**").permitAll();
     }
 }
