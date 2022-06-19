@@ -10,6 +10,7 @@ import com.alkemy.ong.models.request.UserUpdateRequest;
 import com.alkemy.ong.models.response.UserResponse;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
+import com.alkemy.ong.service.EmailService;
 import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -46,6 +50,9 @@ public class UserServiceImpl implements UserService {
         }
         UserEntity userEntity = userMapper.toUserEntity(userRequest, roles);
         userRepository.save(userEntity);
+        if (userEntity != null){
+            emailService.sendEmailTo(userEntity.getEmail());
+        }
         return userMapper.toUserResponse(userEntity);
     }
 
