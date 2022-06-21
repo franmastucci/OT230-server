@@ -36,7 +36,7 @@ public class EmailServiceImpl implements EmailService {
         Request request = new Request();
         try{
             request.setMethod(Method.POST);
-            request.setEndpoint("mail/welcome");
+            request.setEndpoint("mail/send");
             request.setBody(mail.build());
             Response response = sg.api(request);
 
