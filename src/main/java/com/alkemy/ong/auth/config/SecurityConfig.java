@@ -1,5 +1,6 @@
 package com.alkemy.ong.auth.config;
 
+import com.alkemy.ong.auth.utility.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,12 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	return super.authenticationManagerBean();
     }
 
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring()
-				.antMatchers("/auth/register","/auth/login")
-				.antMatchers("/users/**");
-	}
+	private static final String[] publicEndpoint = {
+			//Swagger routes and docs
+	};
     
     @Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -59,7 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.disable()
 				.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
-				.antMatchers("/users/**").permitAll()
+				.antMatchers(HttpMethod.PATCH,"/users/**").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(HttpMethod.DELETE,"/users/**").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(publicEndpoint).permitAll()
 				.anyRequest().authenticated()
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
