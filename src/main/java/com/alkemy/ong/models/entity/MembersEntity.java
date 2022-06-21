@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor @AllArgsConstructor
 @SQLDelete(sql = "UPDATE members SET is_active = false WHERE members_id = ?")
 @Where(clause = "is_active = false")
-public class Members {
+public class MembersEntity {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +43,10 @@ public class Members {
    @Column(nullable = false)
    private String description;
 
-   @Column(name = "is_active", nullable = false)
-   private boolean isActive;
+   @Column(name = "soft_delete", nullable = false)
+   private boolean softDelete;
 
    @CreationTimestamp
-   @Column(name = "creation_date" ,nullable = false, updatable = false)
-   private Timestamp create;
+   @Column(name = "time_stamp" ,nullable = false, updatable = false)
+   private Timestamp timeStamp;
 }

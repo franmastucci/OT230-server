@@ -9,20 +9,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @Builder
-@SQLDelete(sql = "UPDATE user SET soft_delete = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE users SET soft_delete = true WHERE id = ?")
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long id;
 
     @NotNull
@@ -53,7 +52,7 @@ public class UserEntity {
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private List<RoleEntity> roleId;
+    private Set<RoleEntity> roleId;
 
     @Column(name = "timeStamp")
     private Timestamp timestamp;
