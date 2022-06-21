@@ -48,6 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
     	return super.authenticationManagerBean();
     }
+    
+	private static final String[] publicEndpoint = {
+			//Swagger routes and docs
+	};
 
 
 	@Override
