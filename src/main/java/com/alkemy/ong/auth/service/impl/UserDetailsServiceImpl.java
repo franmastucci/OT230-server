@@ -30,7 +30,7 @@ import com.amazonaws.services.pinpoint.model.ForbiddenException;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	@Autowired
 	private JwtUtils jwtUtil;
@@ -41,11 +41,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Optional<UserEntity> userDB = userRepository.findByEmail(email);
-		if (userDB == null) {
+		if (!userDB.isPresent()) {
 			throw new UsernameNotFoundException("User not found");
 		}
 	
-        return new User(userDB.get().getEmail(), userDB.get().getPassword(), mapRoles(userDB.get().getRole()));
+        return new User(userDB.get().getEmail(), userDB.get().getPassword(), mapRoles(userDB.get().getRoleId()));
 	}
 
 	private Collection<? extends GrantedAuthority> mapRoles(Set<RoleEntity> roles) {
