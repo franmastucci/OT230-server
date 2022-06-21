@@ -5,10 +5,11 @@ import com.sendgrid.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-
+@Service
 public class EmailServiceImpl implements EmailService {
 
     @Autowired
@@ -17,6 +18,9 @@ public class EmailServiceImpl implements EmailService {
     @Value("${alkemy.ong.email.sender}")
     private String emailSender;
 
+    @Value("$alkemy.ong.email.apikey")
+    private String apiKey;
+
     @Override
     public void sendEmailTo(String to) {
 
@@ -24,12 +28,10 @@ public class EmailServiceImpl implements EmailService {
 
         Email fromEmail = new Email(emailSender);
         Email toEmail = new Email(to);
-        Content content = new Content("text/css", "body")
-
-
+        Content content = new Content("text/css", "body");
         String subjetc = "Somos Mas ONG y te damos la bienvenida!";
-
         Mail mail = new Mail(fromEmail, subjetc, toEmail, content);
+
         SendGrid sg = new SendGrid(apiKey);
         Request request = new Request();
         try{
