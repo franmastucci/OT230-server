@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,6 +24,7 @@ import com.alkemy.ong.auth.service.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -47,9 +49,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	return super.authenticationManagerBean();
     }
 
-	private static final String[] publicEndpoint = {
-			//Swagger routes and docs
-	};
+
+	@Override
+	public void configure(WebSecurity web) {
+		web.ignoring()
+				.antMatchers("/auth/register","/auth/login")
+				.antMatchers("/users/**");
+	}
+
     
     @Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -64,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling()
-		.authenticationEntryPoint(new Http403ForbiddenEntryPoint());;
+		.authenticationEntryPoint(new Http403ForbiddenEntryPoint());
 		
 	}
 

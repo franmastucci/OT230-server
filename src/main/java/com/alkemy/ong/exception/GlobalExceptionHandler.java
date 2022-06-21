@@ -20,4 +20,13 @@ public class GlobalExceptionHandler {
    protected ExceptionDetails notFoundHandler(Exception exception, HttpServletRequest request) {
       return new ExceptionDetails(LocalDateTime.now(), exception, request);
    }
+
+   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+   @ExceptionHandler({
+      NullPointerException.class
+   })
+   @ResponseBody
+   protected ExceptionDetails conflictHandler(Exception exception, HttpServletRequest request) {
+      return new ExceptionDetails(LocalDateTime.now(), exception, request);
+   }
 }

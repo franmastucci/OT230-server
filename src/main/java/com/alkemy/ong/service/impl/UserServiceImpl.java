@@ -11,6 +11,7 @@ import com.alkemy.ong.models.request.AuthRequest;
 import com.alkemy.ong.models.request.UserRequest;
 import com.alkemy.ong.models.request.UserUpdateRequest;
 import com.alkemy.ong.models.response.AuthResponse;
+import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.models.response.UserResponse;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
@@ -25,6 +26,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -101,5 +103,14 @@ public class UserServiceImpl implements UserService {
         }catch(Exception e){
             return AuthResponse.builder().ok(false).build();
         }
+    }
+
+    @Override
+    public List<UserDetailsResponse> getUsers() {
+        List<UserEntity> users = userRepository.findBySoftDelete();
+        if (users.isEmpty()) {
+            throw new NullPointerException("The user list is empty");
+        }
+        return userMapper.usersToUserDetailsList(users);
     }
 }
