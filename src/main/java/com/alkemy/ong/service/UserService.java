@@ -7,6 +7,7 @@ import com.alkemy.ong.models.response.AuthResponse;
 import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.models.response.UserResponse;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserService {

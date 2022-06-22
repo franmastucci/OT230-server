@@ -44,6 +44,5 @@ public class EmailServiceImpl implements EmailService {
         } catch (IOException ex) {
             System.out.println("Error trying to send Welcome Email");
         }
-
     }
 }

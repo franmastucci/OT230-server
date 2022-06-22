@@ -20,8 +20,6 @@ import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse register(UserRequest userRequest) throws UsernameNotFoundException{
-        if(userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
             throw new UsernameNotFoundException("User already exists");
         }
         Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.USER.getFullRoleName());
@@ -70,7 +68,6 @@ public class UserServiceImpl implements UserService {
         }
         UserEntity userEntity = userMapper.toUserEntity(userRequest, roles);
         userRepository.save(userEntity);
-        emailService.sendEmailTo(userEntity.getEmail());
         return userMapper.toUserResponse(userEntity);
     }
 
@@ -94,11 +91,11 @@ public class UserServiceImpl implements UserService {
 
     public UserEntity getById(Long id) {
         return userRepository.findById(id)
-           .orElseThrow(() -> new UserNotFoundException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
-    
+
     public AuthResponse login(AuthRequest authRequest) {
-        try{
+        try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
             UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getEmail());
             String token = jwtUtils.generateToken(userDetails);
@@ -106,7 +103,7 @@ public class UserServiceImpl implements UserService {
                     .email(authRequest.getEmail())
                     .token(token)
                     .build();
-        }catch(Exception e){
+        } catch (Exception e) {
             return AuthResponse.builder().ok(false).build();
         }
     }
