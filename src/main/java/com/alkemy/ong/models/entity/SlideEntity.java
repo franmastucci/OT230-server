@@ -17,6 +17,7 @@ public class SlideEntity {
     private Long id;
     private String imageUrl;
     private String text;
-    private Integer order;
+    @Column(name = "sort_order")
+    private Integer sort;
     private Long organizationId;
 }
