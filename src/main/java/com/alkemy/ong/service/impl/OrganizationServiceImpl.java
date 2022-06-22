@@ -40,7 +40,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public OrganizationResponse update(Long id, OrganizationRequest request) throws Exception{
+    public OrganizationResponse update(Long id, OrganizationRequest request) throws OrgNotFoundException{
         OrganizationEntity entity = organizationRepository.findById(id).orElse(null);
         
         if(entity==null){
