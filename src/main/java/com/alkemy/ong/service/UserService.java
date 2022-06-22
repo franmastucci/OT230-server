@@ -7,11 +7,12 @@ import com.alkemy.ong.models.response.AuthResponse;
 import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.models.response.UserResponse;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
 
-    UserResponse register(UserRequest userRequest);
+    UserResponse register(UserRequest userRequest) throws IOException;
     void deleteUser(Long id);
     void updateUser(Long id, UserUpdateRequest request);
     AuthResponse login(AuthRequest authRequest);
