@@ -25,7 +25,6 @@ public class UserMapper {
                 .email(userRequest.getEmail())
                 .password(passwordEncoder.encode(userRequest.getPassword()))
                 .roleId(roles)
-                .softDelete(false)
                 .timestamp(new Timestamp(System.currentTimeMillis()))
                 .build();
     }
