@@ -37,5 +37,5 @@ public class OrganizationRequest {
     @NotBlank(message = "the welcome text can't  be blank")
     private String welcomeText;
 
-    private String abautUsText;
+    private String aboutUsText;
 }

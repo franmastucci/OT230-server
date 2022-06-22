@@ -9,13 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OrganizationResponse {
+public class OrganizationResponseInfo {
 
     private String name;
     private String image;
     private String address;
     private Integer phone;
-    private String email;
-    private String welcomeText;
-    private String aboutUsText;
 }

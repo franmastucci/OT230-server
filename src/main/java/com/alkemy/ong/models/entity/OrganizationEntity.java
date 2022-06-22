@@ -12,13 +12,21 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
 @Entity
 @SQLDelete(sql= "UPDATE organizations SET soft_delete = true WHERE id=?")
-@Where(clause = "deleted=false")
+@Where(clause = "soft_delete=false")
 @Table(name = "organizations")
+@Builder
+@NoArgsConstructor 
+@AllArgsConstructor
+@Data
 public class OrganizationEntity {
 
     @Id
@@ -44,9 +52,10 @@ public class OrganizationEntity {
     private String welcomeText;
 
     @Column(columnDefinition = "TEXT")
-    private String abautUsText;
+    private String aboutUsText;
 
     @Column(name = "soft_delete")
+    @Builder.Default
     private boolean deleted = Boolean.FALSE;
 
     @CreationTimestamp

@@ -3,6 +3,7 @@ package com.alkemy.ong.models.mapper;
 import com.alkemy.ong.models.entity.OrganizationEntity;
 import com.alkemy.ong.models.request.OrganizationRequest;
 import com.alkemy.ong.models.response.OrganizationResponse;
+import com.alkemy.ong.models.response.OrganizationResponseInfo;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,7 +17,7 @@ public class OrganizationMapper {
         entity.setPhone(request.getPhone());
         entity.setEmail(request.getEmail());
         entity.setWelcomeText(request.getWelcomeText());
-        entity.setAbautUsText(request.getAbautUsText());
+        entity.setAboutUsText(request.getAboutUsText());
         return entity;
     }
     
@@ -28,7 +29,49 @@ public class OrganizationMapper {
         response.setPhone(entity.getPhone());
         response.setEmail(entity.getEmail());
         response.setWelcomeText(entity.getWelcomeText());
-        response.setAbautUsText(entity.getAbautUsText());
+        response.setAboutUsText(entity.getAboutUsText());
         return response;
+    }
+    
+    public OrganizationResponseInfo entityToResponseInfo(OrganizationEntity entity){
+        OrganizationResponseInfo response = new OrganizationResponseInfo();
+        response.setName(entity.getName());
+        response.setImage(entity.getImage());
+        response.setAddress(entity.getAddress());
+        response.setPhone(entity.getPhone());
+        return response;
+    }
+    
+    public OrganizationEntity updateEntity(OrganizationEntity entity, OrganizationRequest request){
+        
+         if(request.getName()!=null && !request.getName().isEmpty()){
+            entity.setName(request.getName());
+        }
+
+        if(request.getImage()!=null && !request.getImage().isEmpty()){
+            entity.setImage(request.getImage());
+        }
+
+        if (request.getAddress()!=null && !request.getAddress().isEmpty()){
+            entity.setAddress(request.getAddress());
+        }
+
+        if (request.getPhone()!= null){
+            entity.setPhone(request.getPhone());
+        }
+
+        if (request.getEmail()!=null && !request.getEmail().isEmpty()){
+            entity.setEmail(request.getEmail());
+        }
+
+        if (request.getWelcomeText()!=null && !request.getWelcomeText().isEmpty()){
+            entity.setWelcomeText(request.getWelcomeText());
+        }
+
+        if (request.getAboutUsText()!=null && !request.getAboutUsText().isEmpty()){
+            entity.setAboutUsText(request.getAboutUsText());
+        }
+        
+        return entity;
     }
 }
