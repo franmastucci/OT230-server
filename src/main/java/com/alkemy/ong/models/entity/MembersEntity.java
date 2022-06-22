@@ -16,8 +16,8 @@ import java.sql.Timestamp;
 @Entity
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-@SQLDelete(sql = "UPDATE members SET is_active = false WHERE members_id = ?")
-@Where(clause = "is_active = false")
+@SQLDelete(sql = "UPDATE members SET soft_delete = true WHERE members_id = ?")
+@Where(clause = "soft_delete = false")
 public class MembersEntity {
 
    @Id

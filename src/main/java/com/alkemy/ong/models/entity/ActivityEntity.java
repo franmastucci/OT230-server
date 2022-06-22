@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Setter
 @SQLDelete(sql = "UPDATE activities SET soft_delete = true WHERE id = ?")
 @Table(name = "activities")
-@Where(clause = "deleted = false")
+@Where(clause = "soft_delete = false")
 public class ActivityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,5 +27,6 @@ public class ActivityEntity {
     @Column(name = "timeStamp")
     private Timestamp timestamp;
     @Column(name = "soft_delete", columnDefinition = "boolean default false")
+    @Builder.Default
     private Boolean softDelete = false;
 }
