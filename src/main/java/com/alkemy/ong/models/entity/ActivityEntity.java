@@ -7,6 +7,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import lombok.Builder;
 
 @Entity
 @Getter
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 @SQLDelete(sql = "UPDATE activities SET soft_delete = true WHERE id = ?")
 @Table(name = "activities")
 @Where(clause = "soft_delete = false")
+@Builder
 public class ActivityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
