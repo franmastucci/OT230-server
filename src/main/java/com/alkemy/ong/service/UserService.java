@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface UserService {
 
-    UserResponse register(UserRequest userRequest);
+    UserResponse register(UserRequest userRequest) throws IOException;
     void deleteUser(Long id);
     void updateUser(Long id, UserUpdateRequest request);
     AuthResponse login(AuthRequest authRequest);
