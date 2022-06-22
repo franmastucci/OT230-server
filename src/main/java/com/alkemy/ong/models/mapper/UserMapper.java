@@ -3,12 +3,14 @@ package com.alkemy.ong.models.mapper;
 import com.alkemy.ong.models.entity.RoleEntity;
 import com.alkemy.ong.models.entity.UserEntity;
 import com.alkemy.ong.models.request.UserRequest;
+import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.models.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -37,5 +39,25 @@ public class UserMapper {
                 .email(userEntity.getEmail())
                 .password(userEntity.getPassword())
                 .build();
+    }
+
+    public UserDetailsResponse userToUserDetail(UserEntity update) {
+        return UserDetailsResponse.builder()
+           .firstName(update.getFirstName())
+           .lastName(update.getLastName())
+           .email(update.getEmail())
+           .photo(update.getPhoto())
+           .timestamp(update.getTimestamp())
+           .build();
+    }
+
+    public List<UserDetailsResponse> usersToUserDetailsList(List<UserEntity> users) {
+        List<UserDetailsResponse> list = new ArrayList<>();
+
+        for(UserEntity user : users) {
+            list.add( userToUserDetail(user) );
+        }
+
+        return list;
     }
 }
