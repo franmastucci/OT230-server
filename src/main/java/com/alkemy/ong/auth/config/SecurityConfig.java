@@ -1,11 +1,13 @@
 package com.alkemy.ong.auth.config;
 
+import com.alkemy.ong.auth.utility.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -47,13 +49,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
     	return super.authenticationManagerBean();
     }
+    
+	private static final String[] publicEndpoint = {
+			//Swagger routes and docs
+	};
+
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
+	public void configure(WebSecurity web) {
 		web.ignoring()
 				.antMatchers("/auth/register","/auth/login")
 				.antMatchers("/users/**");
 	}
+
     
     @Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -61,12 +69,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.disable()
 				.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
-				.antMatchers("/users/**").permitAll()
+				.antMatchers(HttpMethod.PATCH,"/users/**").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(HttpMethod.DELETE,"/users/**").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(publicEndpoint).permitAll()
 				.anyRequest().authenticated()
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling()
-		.authenticationEntryPoint(new Http403ForbiddenEntryPoint());;
+		.authenticationEntryPoint(new Http403ForbiddenEntryPoint());
 		
 	}
 

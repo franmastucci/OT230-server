@@ -11,20 +11,22 @@ import com.alkemy.ong.models.request.AuthRequest;
 import com.alkemy.ong.models.request.UserRequest;
 import com.alkemy.ong.models.request.UserUpdateRequest;
 import com.alkemy.ong.models.response.AuthResponse;
+import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.models.response.UserResponse;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
+import com.alkemy.ong.service.EmailService;
 import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 
@@ -33,6 +35,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -53,8 +58,8 @@ public class UserServiceImpl implements UserService {
     private JwtUtils jwtUtils;
 
     @Override
-    public UserResponse register(UserRequest userRequest) throws UsernameNotFoundException{
-        if(userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
+    public UserResponse register(UserRequest userRequest) throws UsernameNotFoundException, IOException {
+        if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
             throw new UsernameNotFoundException("User already exists");
         }
         Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.USER.getFullRoleName());
@@ -63,6 +68,8 @@ public class UserServiceImpl implements UserService {
         }
         UserEntity userEntity = userMapper.toUserEntity(userRequest, roles);
         userRepository.save(userEntity);
+        emailService.sendEmailTo(userRequest.getEmail());
+
         return userMapper.toUserResponse(userEntity);
     }
 
@@ -86,11 +93,11 @@ public class UserServiceImpl implements UserService {
 
     public UserEntity getById(Long id) {
         return userRepository.findById(id)
-           .orElseThrow(() -> new UserNotFoundException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
-    
+
     public AuthResponse login(AuthRequest authRequest) {
-        try{
+        try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
             UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getEmail());
             String token = jwtUtils.generateToken(userDetails);
@@ -98,8 +105,17 @@ public class UserServiceImpl implements UserService {
                     .email(authRequest.getEmail())
                     .token(token)
                     .build();
-        }catch(Exception e){
+        } catch (Exception e) {
             return AuthResponse.builder().ok(false).build();
         }
+    }
+
+    @Override
+    public List<UserDetailsResponse> getUsers() {
+        List<UserEntity> users = userRepository.findBySoftDelete();
+        if (users.isEmpty()) {
+            throw new NullPointerException("The user list is empty");
+        }
+        return userMapper.usersToUserDetailsList(users);
     }
 }

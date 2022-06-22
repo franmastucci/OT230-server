@@ -2,6 +2,7 @@ package com.alkemy.ong.models.entity;
 
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -19,6 +20,7 @@ import java.util.Set;
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
+@Where(clause = "deleted = false")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,5 +60,5 @@ public class UserEntity {
     private Timestamp timestamp;
 
     @Column(name = "soft_delete",columnDefinition = "boolean default false")
-    private Boolean softDelete;
+    private Boolean softDelete = false;
 }

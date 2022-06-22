@@ -9,6 +9,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
@@ -35,9 +36,13 @@ public class OrganizationEntity {
     private Long id;
 
     @NonNull
+    @NotEmpty(message = "name can not be null")
+    @NotBlank(message = "name can not be blank")
     @Column(nullable = false)
     private String name;
 
+    @NonNull
+    @NotEmpty(message = "image can not be null")
     @Column(nullable = false)
     private String image;
 
@@ -45,9 +50,13 @@ public class OrganizationEntity {
     private Integer phone;
 
     @NonNull
+    @NotEmpty(message = "email can not be null")
+    @Email(message = "mail is not valid")
     @Column(nullable = false)
     private String email;
 
+    @NonNull
+    @NotEmpty(message = "welcomeText can not be null")
     @Column(nullable = false, columnDefinition = "TEXT")
     private String welcomeText;
 

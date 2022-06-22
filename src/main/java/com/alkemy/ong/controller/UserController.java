@@ -1,14 +1,20 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.auth.config.seeder.DataBaseSeeder;
 import com.alkemy.ong.models.request.UserUpdateRequest;
+import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+
+import static com.alkemy.ong.controller.ApiConstants.ROLE_ADMIN;
 
 @RestController
 @RequestMapping(path = "/users")
@@ -16,6 +22,9 @@ public class UserController {
 
    @Autowired
    private UserService userService;
+
+   @Autowired
+   private DataBaseSeeder seeder;
 
 
    @PatchMapping(path = "/{id}")
@@ -29,6 +38,12 @@ public class UserController {
    public ResponseEntity<Void> deleteUser(@PathVariable("id") @Valid @NotNull Long id) {
       userService.deleteUser(id);
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+   }
+
+   @PreAuthorize(ROLE_ADMIN)
+   @GetMapping(path = "/users")
+   public ResponseEntity<List<UserDetailsResponse>> getUsers() {
+      return ResponseEntity.ok(userService.getUsers());
    }
 
 }
