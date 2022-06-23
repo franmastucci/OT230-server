@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.alkemy.ong.auth.filter.JwtFilter;
 import com.alkemy.ong.auth.service.impl.UserDetailsServiceImpl;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 
 @Configuration
