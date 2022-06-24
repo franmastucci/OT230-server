@@ -1,8 +1,6 @@
 package com.alkemy.ong.models.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -11,9 +9,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
-@Table(name = "categories")
+
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor
+@Table(name = "categories")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE category_id=?")
 @Where(clause = "soft_delete = false")
 public class CategoryEntity {
@@ -37,4 +40,5 @@ public class CategoryEntity {
 
     @Column(name = "soft_delete")
     private Boolean softDelete = false;
+
 }
