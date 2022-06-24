@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface EmailService {
 
-    void sendEmailTo(String to);
+    void sendEmailTo(String to) throws IOException;
 }

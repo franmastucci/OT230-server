@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     private JwtUtils jwtUtils;
 
     @Override
-    public UserResponse register(UserRequest userRequest) throws UsernameNotFoundException{
+    public UserResponse register(UserRequest userRequest) throws UsernameNotFoundException, IOException {
         if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
             throw new UsernameNotFoundException("User already exists");
         }

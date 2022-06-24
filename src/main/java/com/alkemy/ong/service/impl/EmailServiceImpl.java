@@ -12,25 +12,23 @@ public class EmailServiceImpl implements EmailService {
 
     @Value("${alkemy.ong.email.sender}")
     private String emailSender;
-
-    @Value("$alkemy.ong.email.apikey")
-    private String apiKey;
-
-    @Value(("$alkemy.ong.email.templateid"))
+    @Value("${alkemy.ong.email.apikey}")
+    private String sendGridApiKey;
+    @Value("${alkemy.ong.email.templateid}")
     private String templateID;
 
     @Override
-    public void sendEmailTo(String to){
+    public void sendEmailTo(String to) throws IOException{
 
-        Email toEmail = new Email(to);
         Email fromEmail = new Email(emailSender);
-        Content content = new Content("text/html", "body");
-        String subject = "Somos Mas ONG y te damos la bienvenida!";
+        Email toEmail = new Email(to);
+        String subject = "Gracias!";
+        Content content = new Content("text/html", "escribiralgo");
         Mail mail = new Mail(fromEmail, subject, toEmail, content);
 
         mail.setTemplateId(templateID);
 
-        SendGrid sg = new SendGrid(apiKey);
+        SendGrid sg = new SendGrid(sendGridApiKey);
         Request request = new Request();
         try {
             request.setMethod(Method.POST);
@@ -42,7 +40,7 @@ public class EmailServiceImpl implements EmailService {
             System.out.println(response.getBody());
             System.out.println(request.getHeaders());
         } catch (IOException ex) {
-            System.out.println("Error trying to send Welcome Email");
+            throw ex;
         }
     }
 }
