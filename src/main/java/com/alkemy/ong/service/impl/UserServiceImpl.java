@@ -68,8 +68,7 @@ public class UserServiceImpl implements UserService {
         }
         UserEntity userEntity = userMapper.toUserEntity(userRequest, roles);
         userRepository.save(userEntity);
-        emailService.sendEmailTo(userRequest.getEmail());
-
+        emailService.sendEmailTo(userEntity.getEmail());
         return userMapper.toUserResponse(userEntity);
     }
 
