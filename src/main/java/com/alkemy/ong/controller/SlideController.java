@@ -1,6 +1,9 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.models.mapper.SlideMapper;
 import com.alkemy.ong.models.response.SlideResponse;
+import com.alkemy.ong.models.response.SlidesBasicResponse;
+import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.SlideService;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/slides")
@@ -20,6 +25,12 @@ public class SlideController {
 
     @Autowired
     private SlideService slideService;
+
+    @Autowired
+    private SlideMapper slideMapper;
+
+    @Autowired
+    private SlideRepository slideRepository;
     
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
@@ -42,4 +53,13 @@ public class SlideController {
            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping
+    public ResponseEntity<?> getSlideList(){
+        List<SlidesBasicResponse> slidesBasicResponse = slideService.getSlideList();
+        return ResponseEntity.ok().body(slidesBasicResponse);
+    }
+
+
 }
