@@ -18,26 +18,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.alkemy.ong.controller.ApiConstants.ROLE_ADMIN;
+
 
 @RestController
 @RequestMapping("/slides")
 public class SlideController {
 
-    @Autowired
-    private SlideService slideService;
+    private final SlideService slideService;
+    private final SlideMapper slideMapper;
+    private final SlideRepository slideRepository;
 
-    @Autowired
-    private SlideMapper slideMapper;
+    public SlideController(SlideService slideService, SlideMapper slideMapper, SlideRepository slideRepository) {
+        this.slideService = slideService;
+        this.slideMapper = slideMapper;
+        this.slideRepository = slideRepository;
+    }
 
-    @Autowired
-    private SlideRepository slideRepository;
-    
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Object> details(@PathVariable("id") @Valid @NotNull Long id){
          SlideResponse response = new SlideResponse();
         try {
-           response = slideService.details(id);
+           response = this.slideService.details(id);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -48,16 +51,16 @@ public class SlideController {
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable("id") @Valid @NotNull Long id){
         try {
-            return ResponseEntity.ok(slideService.delete(id));
+            return ResponseEntity.ok(this.slideService.delete(id));
         } catch (Exception e) {
            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize(ROLE_ADMIN)
     @GetMapping
     public ResponseEntity<?> getSlideList(){
-        List<SlidesBasicResponse> slidesBasicResponse = slideService.getSlideList();
+        List<SlidesBasicResponse> slidesBasicResponse = this.slideService.getSlideList();
         return ResponseEntity.ok().body(slidesBasicResponse);
     }
 
