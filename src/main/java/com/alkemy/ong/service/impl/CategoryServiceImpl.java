@@ -62,4 +62,11 @@ public class CategoryServiceImpl implements CategoryService {
 
         return response;
     }
+
+    @Override
+    public void deleteCategory(Long id) {
+        CategoryEntity categoryEntity = categoryRepository.findById(id)
+                .orElseThrow(() -> new OrgNotFoundException("Category not found"));
+        categoryRepository.delete(categoryEntity);
+    }
 }
