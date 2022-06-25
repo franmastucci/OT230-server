@@ -17,26 +17,23 @@ import java.util.Set;
 @Component
 public class UserMapper {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     public UserEntity toUserEntity(UserRequest userRequest, Set<RoleEntity> roles) {
         return UserEntity.builder()
                 .firstName(userRequest.getFirstName())
                 .lastName(userRequest.getLastName())
                 .email(userRequest.getEmail())
-                .password(passwordEncoder.encode(userRequest.getPassword()))
+                .password(userRequest.getPassword())
                 .roleId(roles)
                 .timestamp(new Timestamp(System.currentTimeMillis()))
                 .build();
     }
 
-    public UserResponse toUserResponse(UserEntity userEntity) {
+    public UserResponse toUserResponse(UserEntity userEntity, String token) {
         return UserResponse.builder()
                 .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
                 .email(userEntity.getEmail())
-                .password(userEntity.getPassword())
+                .token(token)
                 .build();
     }
 
