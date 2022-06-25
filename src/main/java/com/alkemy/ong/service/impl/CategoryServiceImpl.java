@@ -47,4 +47,19 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryResponse response = categoryMapper.categoryDetailsResponse(categorySave);
         return response;
     }
+
+    @Override
+    public CategoryResponse updateCategory(Long id, CategoryRequest category) {
+
+        CategoryEntity categoryEntity = categoryRepository.findById(id)
+                .orElseThrow(() -> new OrgNotFoundException("Category not found"));
+
+        CategoryEntity categoryUpdated = categoryMapper.updateCategory(categoryEntity, category);
+
+
+
+        CategoryResponse response = categoryMapper.categoryDetailsResponse(categoryRepository.save(categoryUpdated));
+
+        return response;
+    }
 }

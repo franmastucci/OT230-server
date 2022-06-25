@@ -17,27 +17,34 @@ import static com.alkemy.ong.controller.ApiConstants.ROLE_ADMIN;
 
 @RestController
 @RequestMapping(path = "/categories")
+@PreAuthorize(ROLE_ADMIN)
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @PreAuthorize(ROLE_ADMIN)
+
     @GetMapping
     public ResponseEntity<List<CategoryNameResponse>> getAllCategories(){
         return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
     }
 
-    @PreAuthorize(ROLE_ADMIN)
+
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponse> getCategoryDetail(@PathVariable Long id){
         return new ResponseEntity<>(categoryService.getCategoryDetail(id), HttpStatus.OK);
     }
 
-    @PreAuthorize(ROLE_ADMIN)
+
     @PostMapping
     public ResponseEntity<CategoryResponse> createCategory(
             @Valid @RequestBody CategoryRequest category){
         return new ResponseEntity<>(categoryService.createCategory(category),HttpStatus.CREATED);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<CategoryResponse> updateCategory(
+            @PathVariable Long id, @RequestBody @Valid CategoryRequest category){
+        return new ResponseEntity<>(categoryService.updateCategory(id, category), HttpStatus.OK);
     }
 
 }

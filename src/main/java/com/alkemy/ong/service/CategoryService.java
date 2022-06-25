@@ -11,4 +11,5 @@ public interface CategoryService {
     CategoryResponse getCategoryDetail(Long id);
 
     CategoryResponse createCategory(CategoryRequest category);
+    CategoryResponse updateCategory(Long id, CategoryRequest category);
 }

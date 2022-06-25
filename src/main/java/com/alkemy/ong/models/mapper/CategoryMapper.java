@@ -41,4 +41,10 @@ public class CategoryMapper {
                 .image(category.getImage())
                 .build();
     }
+    public CategoryEntity updateCategory(CategoryEntity categoryEntity, CategoryRequest categoryRequest){
+        categoryEntity.setName(categoryRequest.getName());
+        categoryEntity.setDescription(categoryRequest.getDescription());
+        categoryEntity.setImage(categoryRequest.getImage());
+        return categoryEntity;
+    }
 }
