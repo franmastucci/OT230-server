@@ -1,6 +1,8 @@
 package com.alkemy.ong.models.entity;
 
 import lombok.*;
+import lombok.Builder.Default;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -39,6 +41,7 @@ public class CategoryEntity {
     private Timestamp timestamp;
 
     @Column(name = "soft_delete")
-    private Boolean softDelete = false;
+    private Boolean softDelete = Boolean.FALSE;
+
 
 }

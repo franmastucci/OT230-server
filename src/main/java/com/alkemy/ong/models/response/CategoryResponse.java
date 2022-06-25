@@ -21,4 +21,5 @@ public class CategoryResponse {
     private String image;
 
     private Timestamp timestamp;
+
 }
