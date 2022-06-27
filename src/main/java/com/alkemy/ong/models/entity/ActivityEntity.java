@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -31,6 +32,7 @@ public class ActivityEntity {
     @Column(nullable = false)
     private String image;
     @Column(name = "timeStamp")
+    @CreationTimestamp
     private Timestamp timestamp;
     @Column(name = "soft_delete", columnDefinition = "boolean default false")
     @Builder.Default

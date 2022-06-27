@@ -24,4 +24,21 @@ public class ActivityMapper {
         response.setContent(entity.getContent());
         return response;
     }
+    
+    public ActivityEntity updateEntity(ActivityEntity entity, ActivityRequest request){
+        
+         if(request.getName()!=null && !request.getName().isEmpty()){
+            entity.setName(request.getName());
+        }
+
+        if(request.getImage()!=null && !request.getImage().isEmpty()){
+            entity.setImage(request.getImage());
+        }
+
+        if (request.getContent()!=null && !request.getContent().isEmpty()){
+            entity.setContent(request.getContent());
+        }
+        
+        return entity;
+    }
 }

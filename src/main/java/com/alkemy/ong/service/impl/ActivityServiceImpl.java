@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.exception.ActivityNotFoundException;
 import com.alkemy.ong.models.entity.ActivityEntity;
 import com.alkemy.ong.models.mapper.ActivityMapper;
 import com.alkemy.ong.models.request.ActivityRequest;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class ActivityServiceImpl implements ActivityService{
 
     @Autowired
-    private ActivityRepository acitivityRepository;
+    private ActivityRepository activityRepository;
     
     @Autowired
     private ActivityMapper activityMapper;
@@ -21,9 +22,21 @@ public class ActivityServiceImpl implements ActivityService{
     @Override
     public ActivityResponse create(ActivityRequest request) {
         ActivityEntity entity = activityMapper.requestToEntity(request);
-        acitivityRepository.save(entity);
+        activityRepository.save(entity);
         return activityMapper.entityToResponse(entity);
     }
 
-    
+    @Override
+    public ActivityResponse update(Long id, ActivityRequest request) throws ActivityNotFoundException{
+        ActivityEntity entity = activityRepository.findById(id).orElse(null);
+        
+        if(entity==null){
+            throw new ActivityNotFoundException("No activity found with that id");
+        }
+        
+        entity = activityMapper.updateEntity(entity, request);
+        activityRepository.save(entity);
+        
+        return activityMapper.entityToResponse(entity);
+    }
 }
