@@ -16,11 +16,17 @@ import java.util.List;
 @Service
 public class SlideServiceImpl implements SlideService {
 
-    @Autowired
     private SlideRepository slideRepository;
     
-    @Autowired
     private SlideMapper slideMapper;
+
+    @Autowired
+    public SlideServiceImpl(SlideRepository slideRepository, SlideMapper slideMapper) {
+        this.slideRepository = slideRepository;
+        this.slideMapper = slideMapper;
+    }
+    
+    
     
     @Override
     public SlideResponse details(Long id) throws SlideNotFoundException{
