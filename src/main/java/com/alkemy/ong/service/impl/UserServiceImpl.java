@@ -37,10 +37,25 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private UserMapper userMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @Override
     public void deleteUser(Long id) {
@@ -63,6 +78,20 @@ public class UserServiceImpl implements UserService {
     public UserEntity getById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    public AuthResponse login(AuthRequest authRequest) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+            UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getEmail());
+            String token = jwtUtils.generateToken(userDetails);
+            return AuthResponse.builder()
+                    .email(authRequest.getEmail())
+                    .token(token)
+                    .build();
+        } catch (Exception e) {
+            return AuthResponse.builder().ok(false).build();
+        }
     }
 
     @Override
