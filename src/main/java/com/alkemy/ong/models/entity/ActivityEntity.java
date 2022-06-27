@@ -5,10 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
@@ -17,6 +18,8 @@ import lombok.Builder;
 @Table(name = "activities")
 @Where(clause = "soft_delete = false")
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ActivityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
