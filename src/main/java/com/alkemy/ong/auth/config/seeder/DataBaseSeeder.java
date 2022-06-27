@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import com.alkemy.ong.models.entity.CategoryEntity;
+import com.alkemy.ong.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -28,6 +30,8 @@ public class DataBaseSeeder {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
     private PasswordEncoder encoder;
 
 
@@ -36,7 +40,7 @@ public class DataBaseSeeder {
     private static final String HOST_EMAIL = "@test.com";
     private static final String firstNameUser[] = {"Patricia", "Ronald", "Carlos", "Nathaniel", "Caitlin", "Juan", "Thanos", "Will"};
     private static final String lastNameUser[] = {"Brett", "Kathleen", "Brandi", "Craig", "Katrina", "Peralta", "Smith", "Doll"};
-    
+
 
     @EventListener
     public void seed(ContextRefreshedEvent event) throws IOException {
@@ -45,6 +49,9 @@ public class DataBaseSeeder {
         }
         if (userRepository.findAll().isEmpty()) {
             createUsers();
+        }
+        if (categoryRepository.findAll().isEmpty()) {
+            createCategories();
         }
     }
 
@@ -76,13 +83,24 @@ public class DataBaseSeeder {
         Set<RoleEntity> roles = roleRepository.findByName(applicationRole.getFullRoleName());
         return roles;
     }
-    
+
     private void createRole(Long id, RoleEnum applicationRole) {
         RoleEntity role = new RoleEntity();
         role.setId(id);
         role.setName(applicationRole.getFullRoleName());
         role.setDescription(applicationRole.name());
         roleRepository.save(role);
+    }
+    private void createCategories(){
+        for( int i = 1; i < 6; i++){
+            categoryRepository.save(
+                    CategoryEntity.builder()
+                            .name("Category " + i)
+                            .description("Description " + i)
+                            .image("url_image" + i)
+                            .softDelete(false)
+                            .build());
+        }
     }
 
 }
