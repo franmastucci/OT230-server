@@ -37,41 +37,10 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private EmailService emailService;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
     private UserMapper userMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
-    private JwtUtils jwtUtils;
-
-    @Override
-    public UserResponse register(UserRequest userRequest) throws UsernameNotFoundException, IOException {
-        if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
-            throw new UsernameNotFoundException("User already exists");
-        }
-        Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.USER.getFullRoleName());
-        if (roles.isEmpty()) {
-            throw new NullPointerException();
-        }
-        UserEntity userEntity = userMapper.toUserEntity(userRequest, roles);
-        userRepository.save(userEntity);
-        emailService.sendEmailTo(userRequest.getEmail());
-
-        return userMapper.toUserResponse(userEntity);
-    }
 
     @Override
     public void deleteUser(Long id) {
@@ -94,20 +63,6 @@ public class UserServiceImpl implements UserService {
     public UserEntity getById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
-    }
-
-    public AuthResponse login(AuthRequest authRequest) {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-            UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getEmail());
-            String token = jwtUtils.generateToken(userDetails);
-            return AuthResponse.builder()
-                    .email(authRequest.getEmail())
-                    .token(token)
-                    .build();
-        } catch (Exception e) {
-            return AuthResponse.builder().ok(false).build();
-        }
     }
 
     @Override
