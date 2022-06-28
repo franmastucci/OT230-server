@@ -12,6 +12,15 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+   @ResponseStatus(HttpStatus.CONFLICT)
+   @ExceptionHandler({
+      EmailExistsException.class
+   })
+   @ResponseBody
+   protected ExceptionDetails conflictHandler(Exception exception, HttpServletRequest request) {
+      return new ExceptionDetails(LocalDateTime.now(), exception, request);
+   }
+
    @ResponseStatus(HttpStatus.NOT_FOUND)
    @ExceptionHandler({
            UserNotFoundException.class,
@@ -27,7 +36,7 @@ public class GlobalExceptionHandler {
       NullPointerException.class
    })
    @ResponseBody
-   protected ExceptionDetails conflictHandler(Exception exception, HttpServletRequest request) {
+   protected ExceptionDetails internalErrorHandler(Exception exception, HttpServletRequest request) {
       return new ExceptionDetails(LocalDateTime.now(), exception, request);
    }
 }
