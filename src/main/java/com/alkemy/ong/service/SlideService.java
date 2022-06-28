@@ -15,5 +15,5 @@ public interface SlideService {
 
     List<SlidesBasicResponse> getSlideList();
 
-    SlideResponse save(SlidesRequest slidesRequest);
+    SlideResponse create(SlidesRequest slidesRequest);
 }

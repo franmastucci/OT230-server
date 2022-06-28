@@ -8,9 +8,7 @@ import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
 import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.SlideService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -48,18 +46,24 @@ public class SlideServiceImpl implements SlideService {
 
     @Override
     public List<SlidesBasicResponse> getSlideList() {
-        List<SlideEntity> entities = this.slideRepository.findAll();
+        List<SlideEntity> entities = slideRepository.findAll();
         if (entities.isEmpty()){
             throw new SlideNotFoundException("The Slide List is Empty");
         }
-        return this.slideMapper.toBasicListResponse(entities);
+        return slideMapper.toBasicListResponse(entities);
     }
 
-    //temporal
     @Override
-    public SlideResponse save(SlidesRequest slidesRequest) {
-        SlideEntity slideEntity = this.slideMapper.toSlideEntityS3(slidesRequest);
-        SlideEntity slideSaved = this.slideRepository.save(slideEntity);
-        return this.slideMapper.entityToResponse(slideSaved);
+    public SlideResponse create(SlidesRequest slidesRequest) {
+        if (slidesRequest.getSort() == null) {
+            try {
+                Integer lastSort = (this.slideRepository.findAll().size() - 1) + 1;
+            } catch (SlideNotFoundException e) {
+                slidesRequest.setSort(1);
+            }
+        }
+        // todo: pasar todo el request como entidad y persistirla en la DB
     }
+
+
 }
