@@ -1,11 +1,13 @@
 package com.alkemy.ong.auth.config.seeder;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 import com.alkemy.ong.models.entity.CategoryEntity;
+import com.alkemy.ong.models.entity.NewsEntity;
 import com.alkemy.ong.repository.CategoryRepository;
+import com.alkemy.ong.repository.NewsRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -33,6 +35,8 @@ public class DataBaseSeeder {
     private CategoryRepository categoryRepository;
     @Autowired
     private PasswordEncoder encoder;
+    @Autowired
+    private NewsRepository newsRepository;
 
 
 
@@ -52,6 +56,9 @@ public class DataBaseSeeder {
         }
         if (categoryRepository.findAll().isEmpty()) {
             createCategories();
+        }
+        if(newsRepository.findAll().isEmpty()) {
+        	createNews();
         }
     }
 
@@ -102,5 +109,15 @@ public class DataBaseSeeder {
                             .build());
         }
     }
-
+    
+    private void createNews(){
+        for( int i = 1; i < 6; i++){
+            newsRepository.save(NewsEntity.builder()
+            		.name("News " + i)
+            		.content("Content: " + i)
+            		.image("url_image " + i)
+            		.categoryId((long) i)
+            		.build());
+        }
+    }
 }

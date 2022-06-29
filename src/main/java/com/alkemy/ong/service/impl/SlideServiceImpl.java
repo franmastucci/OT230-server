@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SlideServiceImpl implements SlideService {
@@ -25,13 +26,13 @@ public class SlideServiceImpl implements SlideService {
     }
 
     @Override
-    public SlideResponse details(Long id) throws SlideNotFoundException{
+    public SlideResponse details(Long id) throws SlideNotFoundException {
         SlideEntity entity = this.slideRepository.findById(id).orElse(null);
-        
+
         if (entity == null) {
             throw new SlideNotFoundException("No slide found with that id");
         }
-        
+
         return this.slideMapper.entityToResponse(entity);
     }
 
@@ -40,33 +41,52 @@ public class SlideServiceImpl implements SlideService {
         if (this.slideRepository.existsById(id)) {
             this.slideRepository.deleteById(id);
             return "The slide was deleted correctly";
-        } else{
+        } else {
             throw new SlideNotFoundException("No slide found with that id");
         }
     }
 
     @Override
-    public List<SlidesBasicResponse> getSlideList() throws SlideNotFoundException {
+    public List<SlidesBasicResponse> getAllSlides() throws SlideNotFoundException {
         List<SlideEntity> entities = slideRepository.findAll();
-        if (entities.isEmpty()){
+        if (entities.isEmpty()) {
             throw new SlideNotFoundException("The Slide List is Empty");
         }
-        return slideMapper.toBasicListResponse(entities);
+        return this.slideMapper.toBasicListResponse(entities);
     }
 
-    @Override
-    public SlideResponse create(SlidesRequest slidesRequest) throws IOException {
+    private void verification(SlidesRequest slidesRequest){
         if (slidesRequest.getSort() == null) {
             try {
                 Integer lastSort = (this.slideRepository.findAll().get(slideRepository.findAll().size() - 1)
-                        .getSort())+ 1;
+                        .getSort()) + 1;
                 slidesRequest.setSort(lastSort);
             } catch (SlideNotFoundException e) {
                 slidesRequest.setSort(1);
             }
         }
-        SlideEntity slideEntity = slideMapper.toSlideEntityS3(slidesRequest);
-        slideRepository.save(slideEntity);
-        return slideMapper.entityToResponse(slideEntity);
     }
+
+    @Override
+    public SlideResponse create(SlidesRequest slidesRequest) throws IOException {
+        verification(slidesRequest);
+        SlideEntity slideEntity = slideMapper.toSlideEntityS3(slidesRequest);
+        this.slideRepository.save(slideEntity);
+        return this.slideMapper.entityToResponse(slideEntity);
+    }
+
+    private SlideEntity getById(Long id){
+        return slideRepository.findById(id)
+                .orElseThrow(() -> new SlideNotFoundException("Slide ID not found"));
+    }
+
+    @Override
+    public SlideResponse update(Long id, SlidesRequest slidesRequest) throws SlideNotFoundException, IOException {
+        SlideEntity slideObteined = getById(id);
+        verification(slidesRequest);
+        this.slideMapper.changeValues(slideObteined, slidesRequest);
+        SlideEntity slideUpdated = this.slideRepository.save(slideObteined);
+        return this.slideMapper.entityToResponse(slideUpdated);
+    }
+
 }

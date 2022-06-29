@@ -3,6 +3,7 @@ package com.alkemy.ong.controller;
 import com.alkemy.ong.models.request.AuthRequest;
 import com.alkemy.ong.models.request.UserRequest;
 import com.alkemy.ong.models.response.AuthResponse;
+import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.models.response.UserResponse;
 import com.alkemy.ong.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest authRequest) {
         return ResponseEntity.ok(authService.login(authRequest));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDetailsResponse> getPersonalInformation(@RequestHeader(name = "Authorization") String token) {
+        return ResponseEntity.status(HttpStatus.OK).body(authService.getPersonalInformation(token));
     }
 
 }
