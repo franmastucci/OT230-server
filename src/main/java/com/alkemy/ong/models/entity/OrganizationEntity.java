@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Setter
 @Entity
-@SQLDelete(sql= "UPDATE organizations SET soft_delete = true WHERE id=?")
+@SQLDelete(sql= "UPDATE organizations SET soft_delete = true WHERE organization_id=?")
 @Where(clause = "soft_delete=false")
 @Table(name = "organizations")
 @Builder
