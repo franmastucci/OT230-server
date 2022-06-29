@@ -49,4 +49,13 @@ public class SlideMapper {
                 .organizationId(slidesRequest.getOrganizationId())
                 .build();
     }
+
+
+
+    public void changeValues(SlideEntity slideEntity, SlidesRequest slidesRequest) throws IOException {
+        slideEntity.setImageUrl(awsS3Service.uploadFileFromBase64(slidesRequest.getImageUrl()));
+        slideEntity.setText(slidesRequest.getText());
+        slideEntity.setSort(slidesRequest.getSort());
+        slideEntity.setOrganizationId(slidesRequest.getOrganizationId());
+    }
 }

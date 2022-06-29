@@ -52,8 +52,8 @@ public class SlideController {
 
     @PreAuthorize(ROLE_ADMIN)
     @GetMapping
-    public ResponseEntity<List<SlidesBasicResponse>> getSlideList(){
-        List<SlidesBasicResponse> slidesBasicResponse = this.slideService.getSlideList();
+    public ResponseEntity<List<SlidesBasicResponse>> getAllSlide(){
+        List<SlidesBasicResponse> slidesBasicResponse = this.slideService.getAllSlides();
         return ResponseEntity.ok().body(slidesBasicResponse);
     }
 
@@ -62,5 +62,13 @@ public class SlideController {
     public ResponseEntity<SlideResponse> create(@RequestBody @Valid SlidesRequest slidesRequest) throws IOException {
         SlideResponse saveResponse = this.slideService.create(slidesRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveResponse);
+    }
+
+    @PreAuthorize(ROLE_ADMIN)
+    @PutMapping("{id}")
+    public ResponseEntity<SlideResponse> update(
+            @PathVariable Long id, @RequestBody @Valid SlidesRequest slidesRequest) throws IOException {
+        SlideResponse updatedSlide = this.slideService.update(id, slidesRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedSlide);
     }
 }

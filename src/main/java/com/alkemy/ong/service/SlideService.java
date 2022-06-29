@@ -14,7 +14,9 @@ public interface SlideService {
     
     String delete(Long id) throws SlideNotFoundException;
 
-    List<SlidesBasicResponse> getSlideList() throws SlideNotFoundException;
+    List<SlidesBasicResponse> getAllSlides() throws SlideNotFoundException;
 
     SlideResponse create(SlidesRequest slidesRequest) throws IOException;
+
+    SlideResponse update (Long id, SlidesRequest slidesRequest) throws IOException;
 }
