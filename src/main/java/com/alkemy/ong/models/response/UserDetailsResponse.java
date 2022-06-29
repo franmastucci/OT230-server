@@ -4,9 +4,8 @@ import lombok.*;
 
 import java.sql.Timestamp;
 
+@Data
 @Builder
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
 public class UserDetailsResponse {
    private String firstName;
    private String lastName;
