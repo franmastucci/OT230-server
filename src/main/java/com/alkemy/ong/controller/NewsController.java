@@ -39,19 +39,19 @@ public class NewsController {
 		return new ResponseEntity<>(newsServ.getNewsById(id), HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping()
 	ResponseEntity<?> getNews(@Valid @RequestBody NewsRequest news){
 		return new ResponseEntity<>(newsServ.createNews(news), HttpStatus.CREATED);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping(path = "/{id}")
 	ResponseEntity<?> putNews(@Valid @PathVariable("id") Long id, @RequestBody NewsRequest news){
 		return new ResponseEntity<>(newsServ.updateNews(id, news), HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(path = "/{id}")
 	ResponseEntity<Void> deleteNews(@Valid @PathVariable("id") Long id){
 		newsServ.removeNews(id);
