@@ -17,7 +17,6 @@ import java.util.List;
 
 import static com.alkemy.ong.controller.ApiConstants.ROLE_ADMIN;
 
-
 @RestController
 @RequestMapping("/slides")
 public class SlideController {
@@ -30,24 +29,14 @@ public class SlideController {
 
     @PreAuthorize(ROLE_ADMIN)
     @GetMapping("/{id}")
-    public ResponseEntity<Object> details(@PathVariable("id") @Valid @NotNull Long id){
-         SlideResponse response = new SlideResponse();
-        try {
-           response = this.slideService.details(id);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Object> details(@PathVariable("id") @Valid @NotNull Long id) {
+        return ResponseEntity.ok(slideService.details(id));
     }
-    
+
     @PreAuthorize(ROLE_ADMIN)
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") @Valid @NotNull Long id){
-        try {
-            return ResponseEntity.ok(this.slideService.delete(id));
-        } catch (Exception e) {
-           return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<?> delete(@PathVariable("id") @Valid @NotNull Long id) {
+        return ResponseEntity.ok(this.slideService.delete(id));
     }
 
     @PreAuthorize(ROLE_ADMIN)
