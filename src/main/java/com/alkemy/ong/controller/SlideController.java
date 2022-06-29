@@ -28,7 +28,7 @@ public class SlideController {
         this.slideService = slideService;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize(ROLE_ADMIN)
     @GetMapping("/{id}")
     public ResponseEntity<Object> details(@PathVariable("id") @Valid @NotNull Long id){
          SlideResponse response = new SlideResponse();
@@ -40,7 +40,7 @@ public class SlideController {
         return ResponseEntity.ok(response);
     }
     
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize(ROLE_ADMIN)
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable("id") @Valid @NotNull Long id){
         try {
