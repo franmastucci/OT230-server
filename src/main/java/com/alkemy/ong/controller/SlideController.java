@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.alkemy.ong.controller.ApiConstants.ROLE_ADMIN;
@@ -49,21 +50,16 @@ public class SlideController {
         }
     }
 
-
-    /**
-     * List of slides created with his order
-     * @return 202
-     */
     @PreAuthorize(ROLE_ADMIN)
     @GetMapping
-    public ResponseEntity<?> getSlideList(){
+    public ResponseEntity<List<SlidesBasicResponse>> getSlideList(){
         List<SlidesBasicResponse> slidesBasicResponse = this.slideService.getSlideList();
         return ResponseEntity.ok().body(slidesBasicResponse);
     }
 
     @PreAuthorize(ROLE_ADMIN)
     @PostMapping
-    public ResponseEntity<SlideResponse> save(@RequestBody @Valid SlidesRequest slidesRequest){
+    public ResponseEntity<SlideResponse> create(@RequestBody @Valid SlidesRequest slidesRequest) throws IOException {
         SlideResponse saveResponse = this.slideService.create(slidesRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveResponse);
     }

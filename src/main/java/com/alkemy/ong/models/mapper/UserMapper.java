@@ -5,8 +5,6 @@ import com.alkemy.ong.models.entity.UserEntity;
 import com.alkemy.ong.models.request.UserRequest;
 import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.models.response.UserResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;

@@ -5,6 +5,7 @@ import com.alkemy.ong.models.request.SlidesRequest;
 import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface SlideService {
@@ -13,7 +14,7 @@ public interface SlideService {
     
     String delete(Long id) throws SlideNotFoundException;
 
-    List<SlidesBasicResponse> getSlideList();
+    List<SlidesBasicResponse> getSlideList() throws SlideNotFoundException;
 
-    SlideResponse create(SlidesRequest slidesRequest);
+    SlideResponse create(SlidesRequest slidesRequest) throws IOException;
 }
