@@ -68,5 +68,4 @@ public class SlideController {
         List<SlideResponse> slideResponses = this.slideService.getList4Users(organizationId);
         return ResponseEntity.ok(slideResponses);
     }
-
 }

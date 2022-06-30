@@ -1,10 +1,9 @@
 package com.alkemy.ong.service.impl;
 
-import antlr.ANTLRHashString;
+
 import com.alkemy.ong.exception.SlideNotFoundException;
 import com.alkemy.ong.models.entity.SlideEntity;
 import com.alkemy.ong.models.mapper.SlideMapper;
-import com.alkemy.ong.models.request.SlideSortListRequest;
 import com.alkemy.ong.models.request.SlideRequest;
 import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
@@ -22,8 +21,8 @@ import java.util.List;
 @Service
 public class SlideServiceImpl implements SlideService {
 
-    private SlideRepository slideRepository;
-    private SlideMapper slideMapper;
+    private final SlideRepository slideRepository;
+    private final SlideMapper slideMapper;
 
     public SlideServiceImpl(SlideRepository slideRepository, SlideMapper slideMapper) {
         this.slideRepository = slideRepository;
@@ -60,9 +59,9 @@ public class SlideServiceImpl implements SlideService {
         return this.slideMapper.toBasicListResponse(entities);
     }
 
-    private void verification(SlideRequest slideRequest){
+    private void verification(SlideRequest slideRequest) {
         if (slideRequest.getSort() == null) {
-            try{
+            try {
                 Integer lastSort = (this.slideRepository.findAll().get(slideRepository.findAll().size() - 1)
                         .getSort()) + 1;
                 slideRequest.setSort(lastSort);
@@ -80,7 +79,7 @@ public class SlideServiceImpl implements SlideService {
         return this.slideMapper.entityToResponse(slideEntity);
     }
 
-    private SlideEntity getById(Long id){
+    private SlideEntity getById(Long id) {
         return slideRepository.findById(id)
                 .orElseThrow(() -> new SlideNotFoundException("Slide ID not found"));
     }
@@ -96,23 +95,18 @@ public class SlideServiceImpl implements SlideService {
 
     @Override
     public List<SlideResponse> getList4Users(Long organizationId) throws SlideNotFoundException {
-       List<SlideEntity> slideList = this.slideRepository.findAll();
-       List<SlideEntity> listOrganization = new ArrayList<>();
-       if (!slideList.isEmpty()) {
-           for (SlideEntity slideEntity : slideList){
-               if (slideEntity.getOrganizationId().equals(organizationId)){
-                   listOrganization.add(slideEntity);
-               }
-           }
-       } else {
-           throw new SlideNotFoundException("Slide list is Empty");
-       }
-       Collections.sort(listOrganization, new Comparator<SlideEntity>() {
-           @Override
-           public int compare(SlideEntity o1, SlideEntity o2) {
-               return o1.getSort().compareTo(o2.getSort());
-           }
-       });
-       return this.slideMapper.entityList2SlideResponseList(listOrganization);
+        List<SlideEntity> slideList = this.slideRepository.findAll();
+        List<SlideEntity> listOrganization = new ArrayList<>();
+        if (!slideList.isEmpty()) {
+            for (SlideEntity slideEntity : slideList) {
+                if (slideEntity.getOrganizationId().equals(organizationId)) {
+                    listOrganization.add(slideEntity);
+                }
+            }
+        } else {
+            throw new SlideNotFoundException("Slide list is Empty");
+        }
+        Collections.sort(listOrganization, Comparator.comparing(SlideEntity::getSort));
+        return this.slideMapper.entityList2SlideResponseList(listOrganization);
     }
 }
