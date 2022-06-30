@@ -121,8 +121,6 @@
 						{
 							"name": "Delete",
 							"request": {
-<<<<<<< HEAD
-=======
 								"auth": {
 									"type": "bearer",
 									"bearer": [
@@ -133,7 +131,6 @@
 										}
 									]
 								},
->>>>>>> bbe67086f8bbaddd8ef03dd9bc764a4ecbda6379
 								"method": "DELETE",
 								"header": [
 									{
@@ -144,11 +141,7 @@
 									}
 								],
 								"url": {
-<<<<<<< HEAD
-									"raw": "http://localhost:8080/slides/1",
-=======
 									"raw": "http://localhost:8080/slides/3",
->>>>>>> bbe67086f8bbaddd8ef03dd9bc764a4ecbda6379
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -156,9 +149,6 @@
 									"port": "8080",
 									"path": [
 										"slides",
-<<<<<<< HEAD
-										"1"
-=======
 										"3"
 									]
 								}
@@ -237,7 +227,6 @@
 									"path": [
 										"slides",
 										"4"
->>>>>>> bbe67086f8bbaddd8ef03dd9bc764a4ecbda6379
 									]
 								}
 							},
@@ -248,8 +237,6 @@
 				{
 					"name": "Details",
 					"request": {
-<<<<<<< HEAD
-=======
 						"auth": {
 							"type": "bearer",
 							"bearer": [
@@ -260,7 +247,6 @@
 								}
 							]
 						},
->>>>>>> bbe67086f8bbaddd8ef03dd9bc764a4ecbda6379
 						"method": "GET",
 						"header": [
 							{
@@ -270,11 +256,7 @@
 							}
 						],
 						"url": {
-<<<<<<< HEAD
-							"raw": "http://localhost:8080/slides/1",
-=======
 							"raw": "http://localhost:8080/slides/2",
->>>>>>> bbe67086f8bbaddd8ef03dd9bc764a4ecbda6379
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -282,21 +264,13 @@
 							"port": "8080",
 							"path": [
 								"slides",
-<<<<<<< HEAD
-								"1"
-=======
 								"2"
->>>>>>> bbe67086f8bbaddd8ef03dd9bc764a4ecbda6379
 							]
 						}
 					},
 					"response": []
 				},
 				{
-<<<<<<< HEAD
-					"name": "Slides List",
-					"request": {
-=======
 					"name": "Slides List ADMIN",
 					"request": {
 						"auth": {
@@ -309,7 +283,6 @@
 								}
 							]
 						},
->>>>>>> bbe67086f8bbaddd8ef03dd9bc764a4ecbda6379
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -321,6 +294,37 @@
 							"port": "8080",
 							"path": [
 								"slides"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Slide List USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMUB0ZXN0LmNvbSIsInJvbGUiOiJST0xFX1VTRVIiLCJleHAiOjE2NTY2NDQ1OTEsImlhdCI6MTY1NjYwODU5MX0.f-5feb2j7JpkYZ5LE-KTWFSG2ng-PRAbNEMpI2Mbvp0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/slides/organization/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"slides",
+								"organization",
+								"1"
 							]
 						}
 					},
@@ -506,9 +510,6 @@
 			]
 		},
 		{
-<<<<<<< HEAD
-			"name": "Auth User",
-=======
 			"name": "Auth",
 			"item": [
 				{
@@ -573,44 +574,11 @@
 		},
 		{
 			"name": "Users",
->>>>>>> bbe67086f8bbaddd8ef03dd9bc764a4ecbda6379
 			"item": [
 				{
 					"name": "CRUD",
 					"item": [
 						{
-<<<<<<< HEAD
-							"name": "Register User",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"firstName\":\"Carlos\",\r\n    \"lastName\":\"Obando\",\r\n    \"email\":\"obandocarlosandres@gmail.com\",\r\n    \"password\":\"123456789\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/auth/register",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"auth",
-										"register"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-=======
->>>>>>> bbe67086f8bbaddd8ef03dd9bc764a4ecbda6379
 							"name": "delete",
 							"request": {
 								"method": "DELETE",
@@ -654,39 +622,6 @@
 								}
 							},
 							"response": []
-<<<<<<< HEAD
-						}
-					]
-				},
-				{
-					"name": "Login User",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"obandocarlosandres@gmail.com\",\r\n    \"password\":\"123456789\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/auth/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-=======
 						},
 						{
 							"name": "List Users",
@@ -709,7 +644,6 @@
 							"response": []
 						}
 					]
->>>>>>> bbe67086f8bbaddd8ef03dd9bc764a4ecbda6379
 				}
 			]
 		}
