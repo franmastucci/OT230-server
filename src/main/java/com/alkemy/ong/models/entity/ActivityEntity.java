@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -17,6 +19,8 @@ import lombok.Builder;
 @Table(name = "activities")
 @Where(clause = "soft_delete = false")
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ActivityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +32,7 @@ public class ActivityEntity {
     @Column(nullable = false)
     private String image;
     @Column(name = "timeStamp")
+    @CreationTimestamp
     private Timestamp timestamp;
     @Column(name = "soft_delete", columnDefinition = "boolean default false")
     @Builder.Default
