@@ -65,8 +65,10 @@ public class SlideServiceImpl implements SlideService {
                 Integer lastSort = (this.slideRepository.findAll().get(slideRepository.findAll().size() - 1)
                         .getSort()) + 1;
                 slideRequest.setSort(lastSort);
-            } catch (SlideNotFoundException e) {
+            } catch (IndexOutOfBoundsException e) {
                 slideRequest.setSort(1);
+            } catch (SlideNotFoundException ex){
+                throw new SlideNotFoundException("Slide List is empty");
             }
         }
     }
