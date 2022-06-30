@@ -1,9 +1,10 @@
 package com.alkemy.ong.service.impl;
 
+
 import com.alkemy.ong.exception.SlideNotFoundException;
 import com.alkemy.ong.models.entity.SlideEntity;
 import com.alkemy.ong.models.mapper.SlideMapper;
-import com.alkemy.ong.models.request.SlidesRequest;
+import com.alkemy.ong.models.request.SlideRequest;
 import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
 import com.alkemy.ong.repository.SlideRepository;
@@ -11,14 +12,17 @@ import com.alkemy.ong.service.SlideService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class SlideServiceImpl implements SlideService {
 
-    private SlideRepository slideRepository;
-    private SlideMapper slideMapper;
+    private final SlideRepository slideRepository;
+    private final SlideMapper slideMapper;
 
     public SlideServiceImpl(SlideRepository slideRepository, SlideMapper slideMapper) {
         this.slideRepository = slideRepository;
@@ -55,38 +59,54 @@ public class SlideServiceImpl implements SlideService {
         return this.slideMapper.toBasicListResponse(entities);
     }
 
-    private void verification(SlidesRequest slidesRequest){
-        if (slidesRequest.getSort() == null) {
+    private void verification(SlideRequest slideRequest) {
+        if (slideRequest.getSort() == null) {
             try {
                 Integer lastSort = (this.slideRepository.findAll().get(slideRepository.findAll().size() - 1)
                         .getSort()) + 1;
-                slidesRequest.setSort(lastSort);
+                slideRequest.setSort(lastSort);
             } catch (SlideNotFoundException e) {
-                slidesRequest.setSort(1);
+                slideRequest.setSort(1);
             }
         }
     }
 
     @Override
-    public SlideResponse create(SlidesRequest slidesRequest) throws IOException {
-        verification(slidesRequest);
-        SlideEntity slideEntity = slideMapper.toSlideEntityS3(slidesRequest);
+    public SlideResponse create(SlideRequest slideRequest) throws IOException {
+        verification(slideRequest);
+        SlideEntity slideEntity = slideMapper.toSlideEntityS3(slideRequest);
         this.slideRepository.save(slideEntity);
         return this.slideMapper.entityToResponse(slideEntity);
     }
 
-    private SlideEntity getById(Long id){
+    private SlideEntity getById(Long id) {
         return slideRepository.findById(id)
                 .orElseThrow(() -> new SlideNotFoundException("Slide ID not found"));
     }
 
     @Override
-    public SlideResponse update(Long id, SlidesRequest slidesRequest) throws SlideNotFoundException, IOException {
+    public SlideResponse update(Long id, SlideRequest slideRequest) throws SlideNotFoundException, IOException {
         SlideEntity slideObteined = getById(id);
-        verification(slidesRequest);
-        this.slideMapper.changeValues(slideObteined, slidesRequest);
+        verification(slideRequest);
+        this.slideMapper.changeValues(slideObteined, slideRequest);
         SlideEntity slideUpdated = this.slideRepository.save(slideObteined);
         return this.slideMapper.entityToResponse(slideUpdated);
     }
 
+    @Override
+    public List<SlideResponse> getList4Users(Long organizationId) throws SlideNotFoundException {
+        List<SlideEntity> slideList = this.slideRepository.findAll();
+        List<SlideEntity> listOrganization = new ArrayList<>();
+        if (!slideList.isEmpty()) {
+            for (SlideEntity slideEntity : slideList) {
+                if (slideEntity.getOrganizationId().equals(organizationId)) {
+                    listOrganization.add(slideEntity);
+                }
+            }
+        } else {
+            throw new SlideNotFoundException("Slide list is Empty");
+        }
+        Collections.sort(listOrganization, Comparator.comparing(SlideEntity::getSort));
+        return this.slideMapper.entityList2SlideResponseList(listOrganization);
+    }
 }

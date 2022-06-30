@@ -1,7 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.exception.SlideNotFoundException;
-import com.alkemy.ong.models.request.SlidesRequest;
+import com.alkemy.ong.models.request.SlideRequest;
 import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
 
@@ -16,7 +16,9 @@ public interface SlideService {
 
     List<SlidesBasicResponse> getAllSlides() throws SlideNotFoundException;
 
-    SlideResponse create(SlidesRequest slidesRequest) throws IOException;
+    SlideResponse create(SlideRequest slidesRequest) throws IOException;
 
-    SlideResponse update (Long id, SlidesRequest slidesRequest) throws IOException;
+    SlideResponse update (Long id, SlideRequest slidesRequest) throws IOException;
+
+    List<SlideResponse> getList4Users(Long orgId);
 }

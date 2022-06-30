@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.models.request.SlidesRequest;
+import com.alkemy.ong.models.request.SlideRequest;
 import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
 import com.alkemy.ong.service.SlideService;
@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.alkemy.ong.controller.ApiConstants.ROLE_ADMIN;
+import static com.alkemy.ong.controller.ApiConstants.ROLE_USER;
 
 @RestController
 @RequestMapping("/slides")
@@ -48,16 +49,23 @@ public class SlideController {
 
     @PreAuthorize(ROLE_ADMIN)
     @PostMapping
-    public ResponseEntity<SlideResponse> create(@RequestBody @Valid SlidesRequest slidesRequest) throws IOException {
-        SlideResponse saveResponse = this.slideService.create(slidesRequest);
+    public ResponseEntity<SlideResponse> create(@RequestBody @Valid SlideRequest slideRequest) throws IOException {
+        SlideResponse saveResponse = this.slideService.create(slideRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveResponse);
     }
 
     @PreAuthorize(ROLE_ADMIN)
     @PutMapping("{id}")
     public ResponseEntity<SlideResponse> update(
-            @PathVariable Long id, @RequestBody @Valid SlidesRequest slidesRequest) throws IOException {
-        SlideResponse updatedSlide = this.slideService.update(id, slidesRequest);
+            @PathVariable Long id, @RequestBody @Valid SlideRequest slideRequest) throws IOException {
+        SlideResponse updatedSlide = this.slideService.update(id, slideRequest);
         return ResponseEntity.status(HttpStatus.OK).body(updatedSlide);
+    }
+
+    @PreAuthorize(ROLE_USER)
+    @GetMapping("/organization/{id}")
+    public ResponseEntity<List<SlideResponse>> getList4Users(@PathVariable ("id") Long organizationId){
+        List<SlideResponse> slideResponses = this.slideService.getList4Users(organizationId);
+        return ResponseEntity.ok(slideResponses);
     }
 }

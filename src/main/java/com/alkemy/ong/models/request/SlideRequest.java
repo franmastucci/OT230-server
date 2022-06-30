@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SlidesRequest {
+public class SlideRequest {
 
     private String imageUrl;
     private String text;
