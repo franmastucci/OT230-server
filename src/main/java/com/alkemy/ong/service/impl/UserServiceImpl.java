@@ -1,33 +1,17 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.auth.service.JwtUtils;
-import com.alkemy.ong.auth.service.impl.UserDetailsServiceImpl;
-import com.alkemy.ong.auth.utility.RoleEnum;
 import com.alkemy.ong.exception.UserNotFoundException;
-import com.alkemy.ong.models.entity.RoleEntity;
 import com.alkemy.ong.models.entity.UserEntity;
 import com.alkemy.ong.models.mapper.UserMapper;
-import com.alkemy.ong.models.request.AuthRequest;
-import com.alkemy.ong.models.request.UserRequest;
 import com.alkemy.ong.models.request.UserUpdateRequest;
-import com.alkemy.ong.models.response.AuthResponse;
 import com.alkemy.ong.models.response.UserDetailsResponse;
-import com.alkemy.ong.models.response.UserResponse;
-import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
-import com.alkemy.ong.service.EmailService;
 import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 
 @Service
@@ -60,7 +44,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    public UserEntity getById(Long id) {
+    private UserEntity getById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }

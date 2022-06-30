@@ -12,10 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.alkemy.ong.controller.ApiConstants.ROLE_ADMIN;
-
+import static com.alkemy.ong.controller.ApiConstants.ROLE_USER;
 
 @RestController
 @RequestMapping("/slides")
@@ -27,44 +28,45 @@ public class SlideController {
         this.slideService = slideService;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize(ROLE_ADMIN)
     @GetMapping("/{id}")
-    public ResponseEntity<Object> details(@PathVariable("id") @Valid @NotNull Long id){
-         SlideResponse response = new SlideResponse();
-        try {
-           response = this.slideService.details(id);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Object> details(@PathVariable("id") @Valid @NotNull Long id) {
+        return ResponseEntity.ok(slideService.details(id));
     }
-    
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
+    @PreAuthorize(ROLE_ADMIN)
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") @Valid @NotNull Long id){
-        try {
-            return ResponseEntity.ok(this.slideService.delete(id));
-        } catch (Exception e) {
-           return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<?> delete(@PathVariable("id") @Valid @NotNull Long id) {
+        return ResponseEntity.ok(this.slideService.delete(id));
     }
 
-
-    /**
-     * List of slides created with his order
-     * @return 202
-     */
     @PreAuthorize(ROLE_ADMIN)
     @GetMapping
-    public ResponseEntity<List<SlidesBasicResponse>> getSlideList(){
-        List<SlidesBasicResponse> slidesBasicResponse = this.slideService.getSlideList();
+    public ResponseEntity<List<SlidesBasicResponse>> getAllSlide(){
+        List<SlidesBasicResponse> slidesBasicResponse = this.slideService.getAllSlides();
         return ResponseEntity.ok().body(slidesBasicResponse);
     }
 
     @PreAuthorize(ROLE_ADMIN)
     @PostMapping
-    public ResponseEntity<SlideResponse> save(@RequestBody @Valid SlideRequest slideRequest){
+    public ResponseEntity<SlideResponse> create(@RequestBody @Valid SlideRequest slideRequest) throws IOException {
         SlideResponse saveResponse = this.slideService.create(slideRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveResponse);
     }
+
+    @PreAuthorize(ROLE_ADMIN)
+    @PutMapping("{id}")
+    public ResponseEntity<SlideResponse> update(
+            @PathVariable Long id, @RequestBody @Valid SlideRequest slideRequest) throws IOException {
+        SlideResponse updatedSlide = this.slideService.update(id, slideRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedSlide);
+    }
+
+    @PreAuthorize(ROLE_USER)
+    @GetMapping("/organization/{id}")
+    public ResponseEntity<List<SlideResponse>> getList4Users(@PathVariable Long organizationId){
+        List<SlideResponse> slideResponses = this.slideService.getList4Users(organizationId);
+        return ResponseEntity.ok(slideResponses);
+    }
+
 }

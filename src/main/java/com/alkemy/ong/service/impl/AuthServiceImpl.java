@@ -9,6 +9,7 @@ import com.alkemy.ong.models.mapper.UserMapper;
 import com.alkemy.ong.models.request.AuthRequest;
 import com.alkemy.ong.models.request.UserRequest;
 import com.alkemy.ong.models.response.AuthResponse;
+import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.models.response.UserResponse;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
@@ -87,4 +88,12 @@ public class AuthServiceImpl implements AuthService {
         return jwtUtils.generateToken(userDetailsService.loadUserByUsername(userRequest));
     }
 
+    @Override
+    public UserDetailsResponse getPersonalInformation(String token) {
+        String email = jwtUtils.extractUsername(token.substring(7));
+        UserEntity user = userRepository.findByEmail(email)
+           .orElseThrow(() -> new UsernameNotFoundException("User not found with the email: " + email));
+
+        return userMapper.userToUserDetail(user);
+    }
 }
