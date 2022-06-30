@@ -1,7 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.exception.SlideNotFoundException;
-import com.alkemy.ong.models.request.SlidesRequest;
+import com.alkemy.ong.models.request.SlideRequest;
 import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
 
@@ -15,5 +15,7 @@ public interface SlideService {
 
     List<SlidesBasicResponse> getSlideList();
 
-    SlideResponse create(SlidesRequest slidesRequest);
+    SlideResponse create(SlideRequest slideRequest);
+
+    SlideResponse update(SlideRequest slideRequest);
 }

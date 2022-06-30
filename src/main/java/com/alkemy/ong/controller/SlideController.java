@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.models.request.SlidesRequest;
+import com.alkemy.ong.models.request.SlideRequest;
 import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
 import com.alkemy.ong.service.SlideService;
@@ -63,8 +63,8 @@ public class SlideController {
 
     @PreAuthorize(ROLE_ADMIN)
     @PostMapping
-    public ResponseEntity<SlideResponse> save(@RequestBody @Valid SlidesRequest slidesRequest){
-        SlideResponse saveResponse = this.slideService.create(slidesRequest);
+    public ResponseEntity<SlideResponse> save(@RequestBody @Valid SlideRequest slideRequest){
+        SlideResponse saveResponse = this.slideService.create(slideRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveResponse);
     }
 }

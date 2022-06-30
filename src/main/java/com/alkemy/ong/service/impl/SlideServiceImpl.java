@@ -3,7 +3,7 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.exception.SlideNotFoundException;
 import com.alkemy.ong.models.entity.SlideEntity;
 import com.alkemy.ong.models.mapper.SlideMapper;
-import com.alkemy.ong.models.request.SlidesRequest;
+import com.alkemy.ong.models.request.SlideRequest;
 import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
 import com.alkemy.ong.repository.SlideRepository;
@@ -55,8 +55,8 @@ public class SlideServiceImpl implements SlideService {
 
     //temporal
     @Override
-    public SlideResponse create(SlidesRequest slidesRequest) {
-        SlideEntity slideEntity = this.slideMapper.toSlideEntityS3(slidesRequest);
+    public SlideResponse create(SlideRequest slideRequest) {
+        SlideEntity slideEntity = this.slideMapper.toSlideEntityS3(slideRequest);
         SlideEntity slideSaved = this.slideRepository.save(slideEntity);
         return this.slideMapper.entityToResponse(slideSaved);
     }

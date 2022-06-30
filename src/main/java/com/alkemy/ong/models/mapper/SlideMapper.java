@@ -1,7 +1,7 @@
 package com.alkemy.ong.models.mapper;
 
 import com.alkemy.ong.models.entity.SlideEntity;
-import com.alkemy.ong.models.request.SlidesRequest;
+import com.alkemy.ong.models.request.SlideRequest;
 import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
 import org.springframework.stereotype.Component;
@@ -34,19 +34,12 @@ public class SlideMapper {
     }
 
     //temporal
-    public SlideEntity toSlideEntityS3(SlidesRequest slidesRequest) {
+    public SlideEntity toSlideEntityS3(SlideRequest slideRequest) {
         return SlideEntity.builder()
-                .imageUrl(this.base64Decoder(slidesRequest.getImageUrl()))
-                .text(slidesRequest.getText())
-                .sort(slidesRequest.getSort())
-                .organizationId(slidesRequest.getOrganizationId())
+                .imageUrl(slideRequest.getImageUrl())
+                .text(slideRequest.getText())
+                .sort(slideRequest.getSort())
+                .organizationId(slideRequest.getOrganizationId())
                 .build();
-    }
-
-    //temporal
-    private String base64Decoder(String imgUrl) {
-        byte[] bytes = Base64.getDecoder().decode(imgUrl);
-        String actualString = new String(bytes);
-        return actualString;
     }
 }
