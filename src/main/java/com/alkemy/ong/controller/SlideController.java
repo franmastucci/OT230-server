@@ -64,7 +64,7 @@ public class SlideController {
 
     @PreAuthorize(ROLE_USER)
     @GetMapping("/organization/{id}")
-    public ResponseEntity<List<SlideResponse>> getList4Users(@PathVariable Long organizationId){
+    public ResponseEntity<List<SlideResponse>> getList4Users(@PathVariable ("id") Long organizationId){
         List<SlideResponse> slideResponses = this.slideService.getList4Users(organizationId);
         return ResponseEntity.ok(slideResponses);
     }
