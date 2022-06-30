@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.alkemy.ong.controller.ApiConstants.ROLE_ADMIN;
+import static com.alkemy.ong.controller.ApiConstants.ROLE_USER;
 
 
 @RestController
@@ -71,4 +72,12 @@ public class SlideController {
         SlideResponse updatedSlide = this.slideService.update(id, slidesRequest);
         return ResponseEntity.status(HttpStatus.OK).body(updatedSlide);
     }
+
+    @PreAuthorize(ROLE_USER)
+    @GetMapping("/organization")
+    public ResponseEntity<List<SlideResponse>> getList4Users(@RequestParam Long orgId){
+        List<SlideResponse> slideResponses = this.slideService.getList4Users(orgId);
+        return ResponseEntity.ok(slideResponses);
+    }
+
 }

@@ -19,4 +19,6 @@ public interface SlideService {
     SlideResponse create(SlidesRequest slidesRequest) throws IOException;
 
     SlideResponse update (Long id, SlidesRequest slidesRequest) throws IOException;
+
+    List<SlideResponse> getList4Users(Long orgId);
 }

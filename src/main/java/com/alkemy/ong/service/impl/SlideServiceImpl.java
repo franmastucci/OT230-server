@@ -3,6 +3,7 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.exception.SlideNotFoundException;
 import com.alkemy.ong.models.entity.SlideEntity;
 import com.alkemy.ong.models.mapper.SlideMapper;
+import com.alkemy.ong.models.request.SlideSortListRequest;
 import com.alkemy.ong.models.request.SlidesRequest;
 import com.alkemy.ong.models.response.SlideResponse;
 import com.alkemy.ong.models.response.SlidesBasicResponse;
@@ -11,8 +12,10 @@ import com.alkemy.ong.service.SlideService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class SlideServiceImpl implements SlideService {
@@ -87,6 +90,15 @@ public class SlideServiceImpl implements SlideService {
         this.slideMapper.changeValues(slideObteined, slidesRequest);
         SlideEntity slideUpdated = this.slideRepository.save(slideObteined);
         return this.slideMapper.entityToResponse(slideUpdated);
+    }
+
+    @Override
+    public List<SlideResponse> getList4Users(Long organizationId) {
+        SlideSortListRequest sortListRequest = new SlideSortListRequest(organizationId);
+        List<SlideEntity> slideEntities = this.slideRepository.findAll(this.SlideSpecification
+                .getByOrganization(sortListRequest));
+        List<SlideResponse> slideResponses = this.slideMapper.toListResponse(slideEntities);
+        return slideResponses;
     }
 
 }
