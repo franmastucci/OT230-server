@@ -1,10 +1,7 @@
 package com.alkemy.ong.models.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -14,11 +11,12 @@ import java.sql.Timestamp;
 
 
 @Entity
+@Builder
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @SQLDelete(sql = "UPDATE members SET soft_delete = true WHERE members_id = ?")
 @Where(clause = "soft_delete = false")
-public class MembersEntity {
+public class MemberEntity {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
