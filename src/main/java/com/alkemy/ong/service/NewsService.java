@@ -14,5 +14,5 @@ public interface NewsService {
 	NewsResponse getNewsById(Long id);
 	NewsResponse createNews(NewsRequest newsRequest);
 	NewsResponse updateNews(Long id, NewsRequest newsRequest);
-	void removeNews(Long id);
+	String removeNews(Long id);
 }

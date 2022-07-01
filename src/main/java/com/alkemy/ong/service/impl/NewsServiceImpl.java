@@ -49,10 +49,11 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public void removeNews(Long id) {
+	public String removeNews(Long id) {
 		NewsEntity newsFound = newsRepository.findById(id)
 				.orElseThrow(() -> new OrgNotFoundException("That news doesn't exist"));
 		newsRepository.delete(newsFound);
+		return "Successfull removal";
 	}
 
 	@Override

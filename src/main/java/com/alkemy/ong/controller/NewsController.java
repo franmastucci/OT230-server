@@ -53,9 +53,8 @@ public class NewsController {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(path = "/{id}")
-	ResponseEntity<Void> deleteNews(@Valid @PathVariable("id") Long id){
-		newsServ.removeNews(id);
-		return new ResponseEntity<>(HttpStatus.OK);
+	ResponseEntity<?> deleteNews(@Valid @PathVariable("id") Long id){
+		return new ResponseEntity<>(newsServ.removeNews(id), HttpStatus.OK);
 	}
 	
 	
