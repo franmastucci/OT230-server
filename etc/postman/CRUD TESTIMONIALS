@@ -14,7 +14,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjY3MjQyMiwiaWF0IjoxNjU2NjM2NDIyfQ.R575xKoFNxkUXjLqCtRaAbFVzmKMEwrGoAjjobZv4Ic",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1Njc0Mzc2NywiaWF0IjoxNjU2NzA3NzY3fQ.G0V-3A3gJn607uNcGYC6oqKQqbNsjg_-eGIEsJgXG3k",
 							"type": "string"
 						}
 					]
@@ -52,7 +52,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjY3MjQyMiwiaWF0IjoxNjU2NjM2NDIyfQ.R575xKoFNxkUXjLqCtRaAbFVzmKMEwrGoAjjobZv4Ic",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1Njc0Mzc2NywiaWF0IjoxNjU2NzA3NzY3fQ.G0V-3A3gJn607uNcGYC6oqKQqbNsjg_-eGIEsJgXG3k",
 							"type": "string"
 						}
 					]
@@ -84,10 +84,32 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "DELETE - Delete testimonial",
 			"request": {
-				"method": "GET",
-				"header": []
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjY3MjQyMiwiaWF0IjoxNjU2NjM2NDIyfQ.R575xKoFNxkUXjLqCtRaAbFVzmKMEwrGoAjjobZv4Ic",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/testimonials/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"testimonials",
+						"1"
+					]
+				}
 			},
 			"response": []
 		}
