@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @Entity
 @Builder
 @Getter @Setter
+@Table(name = "members")
 @NoArgsConstructor @AllArgsConstructor
 @SQLDelete(sql = "UPDATE members SET soft_delete = true WHERE members_id = ?")
 @Where(clause = "soft_delete = false")
