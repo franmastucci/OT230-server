@@ -4,25 +4,26 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class UpdateMemberRequest {
 
-   @NotEmpty @NotBlank
+   @NotNull @NotEmpty @NotBlank
    private String name;
 
-   @NotEmpty @NotBlank
+   @NotNull @NotEmpty @NotBlank
    private String facebook;
 
-  @NotEmpty @NotBlank
+   @NotNull @NotEmpty @NotBlank
    private String instagram;
 
-   @NotEmpty @NotBlank
+   @NotNull @NotEmpty @NotBlank
    private String linkedIn;
 
-   @NotEmpty @NotBlank
+   @NotNull @NotEmpty @NotBlank
    private String description;
 
-   @NotEmpty @NotBlank
+   @NotNull @NotEmpty @NotBlank
    private String image;
 }
