@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/contacts")
@@ -20,7 +21,7 @@ public class ContactController {
    private final ContactService contactService;
 
    @PostMapping
-   public ResponseEntity<Void> addContact(@RequestBody @Valid ContactRequest request) {
+   public ResponseEntity<Void> addContact(@RequestBody @Valid ContactRequest request) throws IOException {
       contactService.addContact(request);
       return ResponseEntity.status(HttpStatus.OK).build();
    }
