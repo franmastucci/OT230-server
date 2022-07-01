@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "8bdc6291-10a1-4d0f-a496-97246a71af03",
+		"_postman_id": "bb876677-1333-4f1b-859a-b31ef218e923",
 		"name": "Alkemy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "20550451"
+		"_exporter_id": "17022681"
 	},
 	"item": [
 		{
@@ -16,7 +16,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"firstName\" : \"cristian\",\r\n    \"lastName\" : \"aguirre\",\r\n    \"email\" : \"cristian@gmail.com\",\r\n    \"password\" : \"1234\"\r\n}",
+					"raw": "{\r\n    \"firstName\" : \"Adrian\",\r\n    \"lastName\" : \"Olij\",\r\n    \"email\" : \"adrix.43@gmail.com\",\r\n    \"password\" : \"123456789\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
