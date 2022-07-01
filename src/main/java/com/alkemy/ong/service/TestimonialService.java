@@ -8,4 +8,6 @@ public interface TestimonialService {
     TestimonialResponse createTestimonial(TestimonialRequest testimonialRequest);
 
     TestimonialResponse updateTestimonial(Long id, TestimonialRequest testimonialRequest);
+
+    void deleteTestimonial(Long id);
 }

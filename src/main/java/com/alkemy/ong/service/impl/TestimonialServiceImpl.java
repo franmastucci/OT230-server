@@ -43,4 +43,11 @@ public class TestimonialServiceImpl implements TestimonialService {
 
         return response;
     }
+
+    @Override
+    public void deleteTestimonial(Long id) {
+        TestimonialEntity entity = testimonialRepository.findById(id)
+                                    .orElseThrow(() -> new OrgNotFoundException("Testimonial not found"));
+        testimonialRepository.delete(entity);
+    }
 }
