@@ -17,5 +17,4 @@ public class MemberResponse {
    private String linkedIn;
    private String description;
    private String image;
-   private Timestamp timestamp;
 }
