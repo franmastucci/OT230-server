@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "9802de9a-a658-487d-86f9-156ad4d72095",
+		"name": "CRUD TESTIMONIALS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14563465"
+	},
+	"item": [
+		{
+			"name": "POST - Create Testimonial",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjY3MjQyMiwiaWF0IjoxNjU2NjM2NDIyfQ.R575xKoFNxkUXjLqCtRaAbFVzmKMEwrGoAjjobZv4Ic",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Testimonial 1\",\r\n    \"image\" : \"url_image\",\r\n    \"content\": \"content\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/testimonials",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"testimonials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT - Update testimonail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjY3MjQyMiwiaWF0IjoxNjU2NjM2NDIyfQ.R575xKoFNxkUXjLqCtRaAbFVzmKMEwrGoAjjobZv4Ic",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Testimonial UPDATE\",\r\n    \"image\" : \"url_image\",\r\n    \"content\": \"content\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/testimonials/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"testimonials",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
