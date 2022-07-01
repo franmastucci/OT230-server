@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.exception.OrgNotFoundException;
 import com.alkemy.ong.models.entity.TestimonialEntity;
 import com.alkemy.ong.models.mapper.TestimonialMapper;
 import com.alkemy.ong.models.request.TestimonialRequest;
@@ -25,6 +26,21 @@ public class TestimonialServiceImpl implements TestimonialService {
 
         TestimonialResponse response = testimonialMapper.
                 testimonialResponse(testimonialRepository.save(testimonialEntity));
+        return response;
+    }
+
+    @Override
+    public TestimonialResponse updateTestimonial(Long id, TestimonialRequest testimonialRequest) {
+
+        TestimonialEntity testimonialEntity = testimonialRepository.findById(id)
+                        .orElseThrow(() -> new OrgNotFoundException("Testimonial not found"));
+
+        TestimonialEntity updateEntity = testimonialMapper.updateTestimonial(
+                        testimonialEntity, testimonialRequest);
+
+        TestimonialResponse response = testimonialMapper.testimonialResponse(
+                        testimonialRepository.save(updateEntity));
+
         return response;
     }
 }

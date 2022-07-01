@@ -24,4 +24,10 @@ public class TestimonialMapper {
                 .timestamp(testimonialEntity.getTimestamp())
                 .build();
     }
+    public TestimonialEntity updateTestimonial(TestimonialEntity entity, TestimonialRequest request){
+        entity.setName(request.getName());
+        entity.setImage(request.getImage());
+        entity.setContent(request.getContent());
+        return entity;
+    }
 }

@@ -6,4 +6,6 @@ import com.alkemy.ong.models.response.TestimonialResponse;
 public interface TestimonialService {
 
     TestimonialResponse createTestimonial(TestimonialRequest testimonialRequest);
+
+    TestimonialResponse updateTestimonial(Long id, TestimonialRequest testimonialRequest);
 }
