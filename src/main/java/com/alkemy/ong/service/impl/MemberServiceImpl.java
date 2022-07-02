@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -37,8 +38,14 @@ public class MemberServiceImpl implements MemberService {
    @Override
    @Transactional
    public void createMember(MemberRequest request) {
+      checkName(request.getName());
       MemberEntity member = memberMapper.requestToMemberEntity(request);
       membersRepository.save(member);
+   }
+
+   private void checkName(String name) {
+      if(membersRepository.existsByName(name))
+         throw new RuntimeException("There are a member with the same name");
    }
 
    @Transactional
