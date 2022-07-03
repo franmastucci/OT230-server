@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 
 import static com.alkemy.ong.controller.ApiConstants.ROLE_ADMIN;
 
 @RestController
 @RequestMapping(path = "/users")
+@PreAuthorize(ROLE_ADMIN)
 public class UserController {
 
    @Autowired
@@ -26,6 +28,14 @@ public class UserController {
    @Autowired
    private DataBaseSeeder seeder;
 
+   
+   @GetMapping
+   public ResponseEntity<?> getAllUsers(@RequestParam Optional<Integer> page ){
+	   if(page.isPresent()) {
+		   return new ResponseEntity<>(userService.getPaginationUsers(page.get()), HttpStatus.OK);
+	   }
+	return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+   }
 
    @PatchMapping(path = "/{id}")
    public ResponseEntity<Void> updateUser(@PathVariable("id") @Valid @NotNull Long id,

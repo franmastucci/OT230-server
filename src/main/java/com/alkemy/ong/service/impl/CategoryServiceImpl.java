@@ -45,13 +45,11 @@ public class CategoryServiceImpl implements CategoryService {
         String previous = null;
         String next = null;
 
-        if(page > 1){
+        if(page >= 1){
             previous = String.format(PATH_CATEGORY, page-1);
-        }
-        if(categories.hasNext()){
             next = String.format(PATH_CATEGORY, page+1);
         }
-
+        
         return categoryMapper.toCategoryPageResponse(categories.getContent(), previous, next);
     }
 
