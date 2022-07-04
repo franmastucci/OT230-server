@@ -9,6 +9,7 @@ import com.alkemy.ong.models.response.CategoryPageResponse;
 import com.alkemy.ong.models.response.CategoryResponse;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
+import com.alkemy.ong.utils.PaginationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
-    private static final Integer PAGE_SIZE = 10;
+
     private static final String PATH_CATEGORY = "/categories?page=%d";
 
     @Override
@@ -40,19 +41,11 @@ public class CategoryServiceImpl implements CategoryService {
         if (page < 1) {
             throw new OrgNotFoundException("Page not found");
         }
-        Pageable pageable = PageRequest.of(page-1, PAGE_SIZE);
-        Page<CategoryEntity> categories = categoryRepository.findAll(pageable);
-        String previous = null;
-        String next = null;
 
-        if(page > 1){
-            previous = String.format(PATH_CATEGORY, page-1);
-        }
-        if(categories.hasNext()){
-            next = String.format(PATH_CATEGORY, page+1);
-        }
+        PaginationUtil paginationUtil = new PaginationUtil(categoryRepository, page, PATH_CATEGORY);
+        Page<CategoryEntity> categoriesUtil = (Page<CategoryEntity>) paginationUtil.getPage();
 
-        return categoryMapper.toCategoryPageResponse(categories.getContent(), previous, next);
+        return categoryMapper.toCategoryPageResponse(categoriesUtil.getContent(), paginationUtil.getPrevious(), paginationUtil.getNext());
     }
 
     @Override
