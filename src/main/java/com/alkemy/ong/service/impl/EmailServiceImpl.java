@@ -15,19 +15,34 @@ public class EmailServiceImpl implements EmailService {
     @Value("${alkemy.ong.email.apikey}")
     private String sendGridApiKey;
     @Value("${alkemy.ong.email.templateid}")
-    private String templateID;
+    private String templateIDRegister;
+
+    @Value("${alkemy.ong.email.templateidcontact}")
+    private String templateIDContact;
+
+    public void switchEmail(String to, Integer templateId) throws IOException{
+        switch (templateId){
+            case 1: preparateMail(to, "Gracias!", "Contenido", templateIDRegister);
+                    break;
+            case 2:preparateMail(to,"Somos mas Ong", "Muchas gracias por " +
+                    "contactarte con nosotros, te mandaremos un mensaje a la brevedad", templateIDContact);
+                    break;
+        }
+    }
 
     @Override
-    public void sendEmailTo(String to) throws IOException{
+    public void preparateMail(String to, String subject, String contentValue, String template) throws IOException{
 
         Email fromEmail = new Email(emailSender);
         Email toEmail = new Email(to);
-        String subject = "Gracias!";
-        Content content = new Content("text/html", "escribiralgo");
+        Content content = new Content("text/html", contentValue);
         Mail mail = new Mail(fromEmail, subject, toEmail, content);
 
-        mail.setTemplateId(templateID);
+        mail.setTemplateId(template);
+        sendMail(mail);
+    }
 
+    public void sendMail(Mail mail) throws IOException{
         SendGrid sg = new SendGrid(sendGridApiKey);
         Request request = new Request();
         try {

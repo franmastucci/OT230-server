@@ -18,6 +18,9 @@ public class OrganizationMapper {
         entity.setEmail(request.getEmail());
         entity.setWelcomeText(request.getWelcomeText());
         entity.setAboutUsText(request.getAboutUsText());
+        entity.setUrlFacebook(request.getUrlFacebook());
+        entity.setUrlInstagram(request.getUrlInstagram());
+        entity.setUrlLinkedin(request.getUrlLinkedin());
         return entity;
     }
     
@@ -30,6 +33,9 @@ public class OrganizationMapper {
         response.setEmail(entity.getEmail());
         response.setWelcomeText(entity.getWelcomeText());
         response.setAboutUsText(entity.getAboutUsText());
+        response.setUrlFacebook(entity.getUrlFacebook());
+        response.setUrlInstagram(entity.getUrlInstagram());
+        response.setUrlLinkedin(entity.getUrlLinkedin());
         return response;
     }
     
@@ -39,6 +45,9 @@ public class OrganizationMapper {
         response.setImage(entity.getImage());
         response.setAddress(entity.getAddress());
         response.setPhone(entity.getPhone());
+        response.setUrlFacebook(entity.getUrlFacebook());
+        response.setUrlInstagram(entity.getUrlInstagram());
+        response.setUrlLinkedin(entity.getUrlLinkedin());
         return response;
     }
     
@@ -71,7 +80,18 @@ public class OrganizationMapper {
         if (request.getAboutUsText()!=null && !request.getAboutUsText().isEmpty()){
             entity.setAboutUsText(request.getAboutUsText());
         }
-        
+
+        if (request.getUrlFacebook()!=null && !request.getUrlFacebook().isEmpty()){
+            entity.setUrlFacebook(request.getUrlFacebook());
+        }
+
+        if (request.getUrlLinkedin()!=null && !request.getUrlLinkedin().isEmpty()){
+            entity.setUrlLinkedin(request.getUrlLinkedin());
+        }
+
+        if (request.getUrlInstagram()!=null && !request.getUrlInstagram().isEmpty()){
+            entity.setUrlInstagram(request.getUrlInstagram());
+        }
         return entity;
     }
 }
