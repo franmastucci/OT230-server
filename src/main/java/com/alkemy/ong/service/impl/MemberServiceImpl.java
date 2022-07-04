@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -37,10 +36,13 @@ public class MemberServiceImpl implements MemberService {
 
    @Override
    @Transactional
-   public void createMember(MemberRequest request) {
+   public MemberResponse createMember(MemberRequest request) {
       checkName(request.getName());
+
       MemberEntity member = memberMapper.requestToMemberEntity(request);
       membersRepository.save(member);
+
+      return memberMapper.entityToMemberResponse(member);
    }
 
    private void checkName(String name) {
@@ -55,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
    }
 
    @Transactional
-   public void updateMember(Long id, UpdateMemberRequest request) {
+   public MemberResponse updateMember(Long id, UpdateMemberRequest request) {
       MemberEntity member = findById(id);
 
       member.setName(request.getName());
@@ -64,7 +66,8 @@ public class MemberServiceImpl implements MemberService {
       member.setLinkedinUrl(request.getLinkedIn());
       member.setDescription(request.getDescription());
       member.setImage(request.getImage());
-
       membersRepository.save(member);
+
+      return memberMapper.entityToMemberResponse(member);
    }
 }

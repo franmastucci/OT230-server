@@ -30,17 +30,15 @@ public class MemberController {
 
    @PostMapping
    @PreAuthorize(ROLE_USER)
-   public ResponseEntity<Void> createMember(@RequestBody @Valid MemberRequest request){
-      memberService.createMember(request);
-      return ResponseEntity.status(HttpStatus.OK).build();
+   public ResponseEntity<MemberResponse> createMember(@RequestBody @Valid MemberRequest request){
+      return ResponseEntity.status(HttpStatus.OK).body(memberService.createMember(request));
    }
 
    @PutMapping(path = "/{id}")
    @PreAuthorize(ROLE_USER)
-   public ResponseEntity<Void> updateMember(@PathVariable("id") Long id,
+   public ResponseEntity<MemberResponse> updateMember(@PathVariable("id") Long id,
                                             @RequestBody UpdateMemberRequest update) {
-      memberService.updateMember(id, update);
-      return ResponseEntity.status(HttpStatus.OK).build();
+      return ResponseEntity.status(HttpStatus.OK).body(memberService.updateMember(id, update));
    }
 
    @DeleteMapping(path = "/{id}")
