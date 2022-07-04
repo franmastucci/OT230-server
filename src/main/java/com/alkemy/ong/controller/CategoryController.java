@@ -2,6 +2,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.models.request.CategoryRequest;
 import com.alkemy.ong.models.response.CategoryNameResponse;
+import com.alkemy.ong.models.response.CategoryPageResponse;
 import com.alkemy.ong.models.response.CategoryResponse;
 import com.alkemy.ong.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 import static com.alkemy.ong.controller.ApiConstants.ROLE_ADMIN;
 
@@ -22,18 +24,19 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-
     @GetMapping
-    public ResponseEntity<List<CategoryNameResponse>> getAllCategories(){
-        return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
+    public ResponseEntity<?> getAllCategories(@RequestParam Optional<Integer> page){
+        if (page.isPresent()){
+            return new ResponseEntity<>(categoryService.getCategoryPage(page.get()), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
+        }
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponse> getCategoryDetail(@PathVariable Long id){
         return new ResponseEntity<>(categoryService.getCategoryDetail(id), HttpStatus.OK);
     }
-
 
     @PostMapping
     public ResponseEntity<CategoryResponse> createCategory(

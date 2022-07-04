@@ -5,12 +5,15 @@ import com.alkemy.ong.models.entity.UserEntity;
 import com.alkemy.ong.models.request.UserRequest;
 import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.models.response.UserResponse;
+import com.alkemy.ong.models.response.UsersPaginationResponse;
+
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
@@ -51,7 +54,18 @@ public class UserMapper {
         for(UserEntity user : users) {
             list.add( userToUserDetail(user) );
         }
-
+        
         return list;
     }
+
+	public UsersPaginationResponse toUsersPagonationResponse(List<UserEntity> userEntities, String prev, String nxt) {
+		List<UserDetailsResponse> userList = userEntities.stream().map( c ->
+		userToUserDetail(c)).collect(Collectors.toList());
+		return UsersPaginationResponse.builder()
+				.users(userList)
+			    .prev(prev)
+	            .nxt(nxt)
+	            .build();
+				
+	}
 }

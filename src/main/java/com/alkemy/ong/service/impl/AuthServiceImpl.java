@@ -57,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
         if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
             throw new UsernameNotFoundException("User already exists");
         }
-        Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.ADMIN.getFullRoleName());
+        Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.USER.getFullRoleName());
         if (roles.isEmpty()) {
             throw new NullPointerException();
         }
