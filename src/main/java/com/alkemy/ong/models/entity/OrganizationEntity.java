@@ -69,4 +69,8 @@ public class OrganizationEntity {
 
     @CreationTimestamp
     private Timestamp timestamp;
+
+    private String urlFacebook;
+    private String urlInstagram;
+    private String urlLinkedin;
 }
