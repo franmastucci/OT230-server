@@ -22,9 +22,7 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private Long id;
-
-    @NotBlank(message = "The content can't be blank")
-    @NotNull(message = "The content can't be null")
+    
     @Column(columnDefinition = "TEXT")
     private String body;
 

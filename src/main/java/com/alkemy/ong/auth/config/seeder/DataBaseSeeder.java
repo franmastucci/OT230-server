@@ -120,7 +120,7 @@ public class DataBaseSeeder {
     }
     
     private void createNews(){
-        for( int i = 1; i < 6; i++){
+        for( int i = 1; i < 13; i++){
             newsRepository.save(NewsEntity.builder()
             		.name("News " + i)
             		.content("Content: " + i)
