@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "56ae3f4a-e9d8-46b7-a36f-dbf0492a42a7",
 		"name": "OT230",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17022681"
 	},
 	"item": [
 		{
@@ -271,35 +272,6 @@
 					"response": []
 				},
 				{
-					"name": "Slides List ADMIN",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjUwMjQ3NiwiaWF0IjoxNjU2NDY2NDc2fQ.sz3-PxVU43DDGqMKj16dTdwvnLK-QqF8k3pktq5j_b4",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/slides",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"slides"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Slide List USER",
 					"request": {
 						"auth": {
@@ -325,6 +297,35 @@
 								"slides",
 								"organization",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Slides List ADMIN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjUwMjQ3NiwiaWF0IjoxNjU2NDY2NDc2fQ.sz3-PxVU43DDGqMKj16dTdwvnLK-QqF8k3pktq5j_b4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/slides",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"slides"
 							]
 						}
 					},
@@ -644,6 +645,311 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Comments CRUD",
+					"item": [
+						{
+							"name": "Create Comment",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NzA5MTk3OCwiaWF0IjoxNjU3MDU1OTc4fQ.tz3osIVb82vc_-vm0M_34TFWVDp0yxF_W44ruOBpfUU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"body\": \"Un comentario\",\r\n\"userId\": \"1\",\r\n\"newsId\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/comments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Comment",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/comments/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"comments",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Comment",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"body\": \"Un comentario editado\",\r\n\"userId\": \"1\",\r\n\"newsId\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/comments/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"comments",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comments List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "News",
+			"item": [
+				{
+					"name": "News CRUD",
+					"item": [
+						{
+							"name": "http://localhost:8080/news",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjQ5MzI1NiwiaWF0IjoxNjU2NDU3MjU2fQ.Xe7QCfdZIqjtfT8srCPm1MlaSDrnZfG9Zzz3DX1nf7E",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n    \"name\": \"News 888\",\r\n    \"content\": \"Content: 888\",\r\n    \"image\": \"url_image 888\",\r\n    \"categoryId\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/news",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"news"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/news",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjQ5MzI1NiwiaWF0IjoxNjU2NDU3MjU2fQ.Xe7QCfdZIqjtfT8srCPm1MlaSDrnZfG9Zzz3DX1nf7E",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/news/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"news",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/news",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjQ5MzI1NiwiaWF0IjoxNjU2NDU3MjU2fQ.Xe7QCfdZIqjtfT8srCPm1MlaSDrnZfG9Zzz3DX1nf7E",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n    \"name\": \"The News number one\",\r\n    \"content\": \"Content: 1\",\r\n    \"image\": \"image.jpg\",\r\n    \"categoryId\": 1,\r\n    \"lastModification\": \"2022-06-28T23:16:08.000+00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/news/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"news",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "http://localhost:8080/news",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjQ5MzI1NiwiaWF0IjoxNjU2NDU3MjU2fQ.Xe7QCfdZIqjtfT8srCPm1MlaSDrnZfG9Zzz3DX1nf7E",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/news",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/news",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAdGVzdC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NjQ5MzI1NiwiaWF0IjoxNjU2NDU3MjU2fQ.Xe7QCfdZIqjtfT8srCPm1MlaSDrnZfG9Zzz3DX1nf7E",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/news/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

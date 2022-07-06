@@ -79,8 +79,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 //slides
                                 .antMatchers(HttpMethod.GET, "/slides").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
                                 .antMatchers(HttpMethod.DELETE, "/slides/**").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+								.antMatchers(HttpMethod.POST, "/slides").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+								.antMatchers(HttpMethod.PUT, "/slides/**").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
                                 //Activity
                                 .antMatchers(HttpMethod.POST, "/activity").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+								//Contacts
+				                .antMatchers(HttpMethod.GET, "/contacts").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+								//Comments
+								.antMatchers(HttpMethod.POST,"/comments").permitAll()
+								.antMatchers(HttpMethod.PUT,"/comments/**").permitAll()
+
 				.antMatchers(publicEndpoint).permitAll()
 				.anyRequest().authenticated()
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

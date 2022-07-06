@@ -9,12 +9,11 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 public class CommentRequest {
-    @NotBlank(message = "The body can't be blank")
+
     private String body;
     @NotNull(message = "NewsId can't be null")
     private Long newsId;
-
     @NotNull(message = "UserId can't be null")
-    private Long UserId;
+    private Long userId;
 
 }
