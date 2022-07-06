@@ -66,4 +66,11 @@ public class CommentMapper {
         });
         return commentRespList;
     }
+
+    public CommentEntity changeValues(CommentRequest commentRequest, CommentEntity commentEntity){
+        commentEntity.setNewsId(commentRequest.getNewsId());
+        commentEntity.setUserId(commentRequest.getUserId());
+        commentEntity.setBody(commentRequest.getBody());
+        return commentEntity;
+    }
 }

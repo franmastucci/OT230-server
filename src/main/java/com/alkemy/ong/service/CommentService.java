@@ -16,5 +16,5 @@ public interface CommentService {
 
     CommentCompleteResponse create(CommentRequest commentRequest);
 
-    String update(Long id, CommentRequest commentRequest, String token);
+    CommentCompleteResponse update(Long id, CommentRequest commentRequest, String token);
 }

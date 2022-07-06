@@ -42,11 +42,9 @@ public class CommentController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateComment(
-            @PathVariable("id") Long id, CommentRequest commentRequest, HttpServletRequest request){
-
-        return new ResponseEntity<>(this.commentServ.update(id,commentRequest, request.getHeader("Authorization")),
-                HttpStatus.OK);
-
+    public ResponseEntity<CommentCompleteResponse> updateComment(
+            @PathVariable("id") Long id, @RequestBody CommentRequest commentRequest, HttpServletRequest request){
+        CommentCompleteResponse completeResponse =this.commentServ.update(id,commentRequest, request.getHeader("Authorization"));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(completeResponse);
     }
 }

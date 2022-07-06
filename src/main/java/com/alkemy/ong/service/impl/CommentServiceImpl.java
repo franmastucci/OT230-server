@@ -82,7 +82,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public String update(Long id, CommentRequest commentRequest, String token) {
+    public CommentCompleteResponse update(Long id, CommentRequest commentRequest, String token) {
         var commentDB = commentRepo.findById(id).orElseThrow(() -> new OrgNotFoundException("Comment not found"));
 
         var tokenSplit = token.split(" ");
@@ -94,8 +94,8 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         if (role.equalsIgnoreCase("ROLE_ADMIN") | commentDB.getUser().equals(userDB)) {
-            this.commentRepo.save(this.commentMapper.toCommentEntity(commentRequest));
-            return commentRequest.getBody();
+            this.commentMapper.changeValues(commentRequest, commentDB);
+            return this.commentMapper.toCommentCompleteResponse(this.commentRepo.save(commentDB));
         } else {
             throw  new BadCredentialsException("Invalid Credentials");
         }
