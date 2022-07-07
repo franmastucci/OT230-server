@@ -39,7 +39,7 @@ public class NewsEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "news_id")
-	private Long idNews;
+	private Long id;
 
 	@NotBlank(message = "The content can't be blank or null")
 	@Column(name = "name", length = 50, nullable = false, unique = true)
