@@ -2,6 +2,7 @@ package com.alkemy.ong.models.mapper;
 
 import com.alkemy.ong.models.entity.MemberEntity;
 import com.alkemy.ong.models.request.MemberRequest;
+import com.alkemy.ong.models.response.MemberPageResponse;
 import com.alkemy.ong.models.response.MemberResponse;
 import org.springframework.stereotype.Component;
 
@@ -40,5 +41,13 @@ public class MemberMapper {
       }
 
       return memberResponses;
+   }
+
+   public MemberPageResponse entityPageToPageResponse(List<MemberEntity> members, String previous, String next) {
+      return MemberPageResponse.builder()
+         .members( entitiesToListOfResponses(members) )
+         .previous(previous)
+         .next(next)
+         .build();
    }
 }
