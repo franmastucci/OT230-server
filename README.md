@@ -2,12 +2,12 @@
 ONG-java
 
 
-####Mentor:
+#### Mentor:
 |         Nombre          |                GitHub                 |
 |  :-------------------   | :-----------------------------------  |
 | Francisco Mastucci      | https://github.com/franmastucci       |
 
-####Participantes
+#### Participantes
 |         Nombres         |                GitHub                 |
 |  :-------------------   | :-----------------------------------  |
 | Cristian Aguirre        | <https://github.com/Cristianaaguirre> |
