@@ -32,6 +32,9 @@ ONG-java
 | admin8@test.com	| Will	Doll        | 12345678      |
 
 > ##### Usuarios Standard
+
+|     Mail        |      Nombre       |    Password   |
+| :---:            | :---:            | :---:         |
 | user1@test.com	| Patricia	Brett   | 12345678      |
 | user2@test.com	| Ronald	Kathleen  | 12345678      |
 | user3@test.com	| Carlos	Brandi    | 12345678      |
