@@ -11,7 +11,7 @@ ONG-java
 |         Nombres         |                GitHub                 |
 |  :-------------------   | :-----------------------------------  |
 | Cristian Aguirre        | <https://github.com/Cristianaaguirre> |
-| Franco Tonanes          | <https://github.com/FrancoTonanes>    |
+| Franco Tonanes           <https://github.com/FrancoTonanes>    
 | Carlos Obando Casiano   | <https://github.com/caobandoc>        |
 | Facundo Da'Lessio       | <https://github.com/FacuDalessio>     |
 | Mariano Martinez Rinaudo| <https://github.com/MartinezRinaudo>  |
