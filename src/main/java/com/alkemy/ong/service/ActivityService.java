@@ -7,5 +7,5 @@ import com.alkemy.ong.models.response.ActivityResponse;
 public interface ActivityService {
 
     public ActivityResponse create(ActivityRequest request);
-    public ActivityResponse update(Long id, ActivityRequest request) throws ActivityNotFoundException;
+    public ActivityResponse update(Long id, ActivityRequest request);
 }

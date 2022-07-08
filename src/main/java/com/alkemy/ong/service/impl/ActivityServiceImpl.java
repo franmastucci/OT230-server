@@ -27,12 +27,10 @@ public class ActivityServiceImpl implements ActivityService{
     }
 
     @Override
-    public ActivityResponse update(Long id, ActivityRequest request) throws ActivityNotFoundException{
-        ActivityEntity entity = activityRepository.findById(id).orElse(null);
-        
-        if(entity==null){
-            throw new ActivityNotFoundException("No activity found with that id");
-        }
+    public ActivityResponse update(Long id, ActivityRequest request){
+        ActivityEntity entity = activityRepository.findById(id)
+                .orElseThrow(() -> new ActivityNotFoundException("No activity found with that id"));
+
         
         entity = activityMapper.updateEntity(entity, request);
         activityRepository.save(entity);
