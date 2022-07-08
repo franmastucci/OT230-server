@@ -62,6 +62,7 @@ public abstract class ContextTests {
 
     @Before
     public void setup() {
+        createUserData();
         createRoles();
     }
 
