@@ -3,10 +3,8 @@ package com.alkemy.ong.auth.config.seeder;
 import java.io.IOException;
 import java.util.Set;
 
-import com.alkemy.ong.models.entity.CategoryEntity;
-import com.alkemy.ong.models.entity.NewsEntity;
-import com.alkemy.ong.repository.CategoryRepository;
-import com.alkemy.ong.repository.NewsRepository;
+import com.alkemy.ong.models.entity.*;
+import com.alkemy.ong.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -15,13 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.ong.auth.utility.RoleEnum;
-import com.alkemy.ong.models.entity.ActivityEntity;
-
-import com.alkemy.ong.models.entity.RoleEntity;
-import com.alkemy.ong.models.entity.UserEntity;
-import com.alkemy.ong.repository.ActivityRepository;
-import com.alkemy.ong.repository.RoleRepository;
-import com.alkemy.ong.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,6 +34,8 @@ public class DataBaseSeeder {
     @Autowired
     private ActivityRepository activityRepository;
 
+    @Autowired
+    private CommentRepository commentRepository;
 
     //Users
     private static final String PASSWORD = "12345678";
@@ -68,11 +61,12 @@ public class DataBaseSeeder {
         }
         if(newsRepository.findAll().isEmpty()) {
             createNews();
-
         }
         if (activityRepository.findAll().isEmpty()) {
             createActivity();
-
+        }
+        if (commentRepository.findAll().isEmpty()) {
+            createComments();
         }
     }
 
@@ -126,7 +120,7 @@ public class DataBaseSeeder {
     }
     
     private void createNews(){
-        for( int i = 1; i < 6; i++){
+        for( int i = 1; i < 13; i++){
             newsRepository.save(NewsEntity.builder()
             		.name("News " + i)
             		.content("Content: " + i)
@@ -135,8 +129,6 @@ public class DataBaseSeeder {
             		.build());
         }
     }
-
-
     
     private void createActivity() {
         for (int index = 0; index < 3; index++) {
@@ -145,6 +137,16 @@ public class DataBaseSeeder {
                             .name(name[index])
                             .content("content " + (index + 1))
                             .image("image " + (index + 1))
+                            .build());
+        }
+    }
+
+    private void createComments() {
+        for( int i = 1; i < 13; i++){
+            commentRepository.save(CommentEntity.builder()
+                            .body("body " + i)
+                            .newsId((long) i)
+                            .userId((long) i)
                             .build());
         }
     }

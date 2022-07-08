@@ -2,6 +2,7 @@ package com.alkemy.ong.controller;
 
 import javax.validation.Valid;
 
+import com.alkemy.ong.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,9 @@ public class NewsController {
 	
 	@Autowired
 	NewsService newsServ;
+
+	@Autowired
+	CommentService commentServ;
 
 	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	@GetMapping()
@@ -57,7 +61,11 @@ public class NewsController {
 		return new ResponseEntity<>(newsServ.removeNews(id), HttpStatus.OK);
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR (hasRole('ROLE_USER'))")
+	@GetMapping(path = "/{id}/comments")
+	ResponseEntity<?> getCommentsByNewsId(@Valid @PathVariable("id") Long id){
+		return new ResponseEntity<>(commentServ.findCommentsByNews(id), HttpStatus.OK);
+	}
 	
 }
 
