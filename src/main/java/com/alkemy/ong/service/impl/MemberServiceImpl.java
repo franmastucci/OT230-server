@@ -9,7 +9,7 @@ import com.alkemy.ong.models.response.MemberPageResponse;
 import com.alkemy.ong.models.response.MemberResponse;
 import com.alkemy.ong.repository.MembersRepository;
 import com.alkemy.ong.service.MemberService;
-import com.alkemy.ong.utils.PageUtil;
+import com.alkemy.ong.utils.ClassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.alkemy.ong.utils.ApiConstants.PATH_MEMBERS;
+
 @Service
-public class MemberServiceImpl extends PageUtil<MemberEntity, Long, MembersRepository> implements MemberService{
+public class MemberServiceImpl extends ClassUtil<MemberEntity, Long, MembersRepository> implements MemberService{
 
    @Autowired
    private MembersRepository membersRepository;
@@ -26,16 +28,10 @@ public class MemberServiceImpl extends PageUtil<MemberEntity, Long, MembersRepos
    @Autowired
    private MemberMapper memberMapper;
 
-   private static final String PATH_MEMBERS = "?page=%d";
-
-   private MemberEntity findById(Long id) {
-      return membersRepository.findById(id)
-         .orElseThrow(() -> new MemberNotFoundException("Member not found"));
-   }
-
    @Override
-   @Transactional(readOnly = true)
    public MemberPageResponse pagination(Integer numberOfPage) {
+
+      if(numberOfPage < 1) throw new RuntimeException("Resource not found");
 
       Page<MemberEntity> page = getPage(numberOfPage);
       String previous = getPrevious(PATH_MEMBERS, numberOfPage);
@@ -45,9 +41,8 @@ public class MemberServiceImpl extends PageUtil<MemberEntity, Long, MembersRepos
    }
 
    @Override
-   @Transactional(readOnly = true)
    public List<MemberResponse> getMembers() {
-      return memberMapper.entitiesToListOfResponses(membersRepository.findAll());
+      return memberMapper.entitiesToListOfResponses( findAll() );
    }
 
    @Override
@@ -56,7 +51,7 @@ public class MemberServiceImpl extends PageUtil<MemberEntity, Long, MembersRepos
       checkName(request.getName());
 
       MemberEntity member = memberMapper.requestToMemberEntity(request);
-      membersRepository.save(member);
+      save(member);
 
       return memberMapper.entityToMemberResponse(member);
    }
@@ -68,13 +63,13 @@ public class MemberServiceImpl extends PageUtil<MemberEntity, Long, MembersRepos
 
    @Transactional
    public void deleteMember(Long id) {
-      MemberEntity entity = findById(id);
-      membersRepository.delete(entity);
+      MemberEntity entity = findById(id, "Member");
+      delete(entity);
    }
 
    @Transactional
    public MemberResponse updateMember(Long id, UpdateMemberRequest request) {
-      MemberEntity member = findById(id);
+      MemberEntity member = findById(id, "Member");
 
       member.setName(request.getName());
       member.setFacebookUrl(request.getFacebook());
@@ -82,7 +77,8 @@ public class MemberServiceImpl extends PageUtil<MemberEntity, Long, MembersRepos
       member.setLinkedinUrl(request.getLinkedIn());
       member.setDescription(request.getDescription());
       member.setImage(request.getImage());
-      membersRepository.save(member);
+
+      save(member);
 
       return memberMapper.entityToMemberResponse(member);
    }

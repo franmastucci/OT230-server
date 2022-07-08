@@ -30,6 +30,7 @@ public class MemberMapper {
          .instagram(entity.getInstagramUrl())
          .linkedIn(entity.getLinkedinUrl())
          .description(entity.getDescription())
+         .image(entity.getImage())
          .build();
    }
 
