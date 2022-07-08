@@ -4,13 +4,13 @@ ONG-java
 Test Markdown 1
 ===============
 
-|         Nombres         |                GitHub                 |
-|  :-------------------:  | :-----------------------------------: |
+|         Nombre          |                GitHub                 |
+|  :-------------------   | :-----------------------------------  |
 | Francisco Mastucci      | https://github.com/franmastucci
 
 
 |         Nombres         |                GitHub                 |
-|  :-------------------:  | :-----------------------------------: |
+|  :-------------------   | :-----------------------------------  |
 | Cristian Aguirre        | https://github.com/Cristianaaguirre   |
 | Franco Tonanes          | https://github.com/FrancoTonanes      |
 | Carlos Obando Casiano   | https://github.com/caobandoc          |
