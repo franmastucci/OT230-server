@@ -17,7 +17,7 @@ ONG-java
 | Mariano Martinez Rinaudo| <https://github.com/MartinezRinaudo>  |
 | Adrian Olij             | <https://github.com/AdrianOlij>       |
 
-> #### Usuarios precargados
+> #### Usuarios precargados en la API
 
 |     Mail        |      Nombre       |    Password   |
 | :---:            | :---:            | :---:         |
@@ -26,6 +26,7 @@ ONG-java
 | admin3@test.com | Carlos	Brandi    | 12345678      |
 | admin4@test.com	| Nathaniel	Craig   | 12345678      |
 | admin5@test.com	| Caitlin	Katrina   | 12345678      |
+| ---             | ---               | ---           |
 | admin6@test.com	| Juan	Peralta     | 12345678      |
 | admin7@test.com	| Thanos Smith      | 12345678      |
 | admin8@test.com	| Will	Doll        | 12345678      |
