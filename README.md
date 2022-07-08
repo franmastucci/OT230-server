@@ -5,17 +5,17 @@ ONG-java
 > ### **Mentor:**
 |       **Nombre**        |              **GitHub**               |
 |  :-------------------   | :-----------------------------------  |
-| Francisco Mastucci      | https://github.com/franmastucci       |
+| Francisco Mastucci      | [Link]https://github.com/franmastucci |
 
 > ### Participantes
-|       **Nombre**        |              **GitHub**               |
-|  :-------------------   | :-----------------------------------  |
-| Cristian Aguirre        | <https://github.com/Cristianaaguirre> |
-| Franco Tonanes          | <https://github.com/FrancoTonanes>    |
-| Carlos Obando Casiano   | <https://github.com/caobandoc>        |
-| Facundo Da'Lessio       | <https://github.com/FacuDalessio>     |
-| Mariano Martinez Rinaudo| <https://github.com/MartinezRinaudo>  |
-| Adrian Olij             | <https://github.com/AdrianOlij>       |
+|       **Nombre**        |              **GitHub**                     |
+|  :---                   | :---                                        |
+| Cristian Aguirre        | [Link]<https://github.com/Cristianaaguirre> |
+| Franco Tonanes          | [Link]<https://github.com/FrancoTonanes>    |
+| Carlos Obando Casiano   | [Link]<https://github.com/caobandoc>        |
+| Facundo Da'Lessio       | [Link]<https://github.com/FacuDalessio>     |
+| Mariano Martinez Rinaudo| [Link]<https://github.com/MartinezRinaudo>  |
+| Adrian Olij             | [Link]<https://github.com/AdrianOlij>       |
 
 > ### **Usuarios precargados en la API**
 > ##### *Usuarios Administradores*
@@ -35,7 +35,7 @@ ONG-java
 
 |    **Mail**     |    **Nombre**     |  **Password** |
 | :---:           | :---:             | :---:         |
-| user1@test.com	| Patricia	Brett   | 12345678      |
+| `user1@test.com`| Patricia	Brett   | 12345678      |
 | user2@test.com	| Ronald	Kathleen  | 12345678      |
 | user3@test.com	| Carlos	Brandi    | 12345678      |
 | user4@test.com	| Nathaniel	Craig   | 12345678      |
