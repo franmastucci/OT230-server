@@ -2,12 +2,12 @@
 ONG-java
 
 
-> #### **Mentor:**
+> ### **Mentor:**
 |       **Nombre**        |              **GitHub**               |
 |  :-------------------   | :-----------------------------------  |
 | Francisco Mastucci      | https://github.com/franmastucci       |
 
-> #### Participantes
+> ### Participantes
 |       **Nombre**        |              **GitHub**               |
 |  :-------------------   | :-----------------------------------  |
 | Cristian Aguirre        | <https://github.com/Cristianaaguirre> |
@@ -17,7 +17,7 @@ ONG-java
 | Mariano Martinez Rinaudo| <https://github.com/MartinezRinaudo>  |
 | Adrian Olij             | <https://github.com/AdrianOlij>       |
 
-> #### **Usuarios precargados en la API**
+> ### **Usuarios precargados en la API**
 > ##### *Usuarios Administradores*
 
 |   **Mail**      |    **Nombre**     |  **Password** |
