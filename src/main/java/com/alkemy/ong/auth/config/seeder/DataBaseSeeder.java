@@ -1,6 +1,7 @@
 package com.alkemy.ong.auth.config.seeder;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Set;
 
 import com.alkemy.ong.models.entity.CategoryEntity;
@@ -96,6 +97,7 @@ public class DataBaseSeeder {
                             .email(applicationRole.getSimpleRoleName().toLowerCase() + (index + 1) + HOST_EMAIL)
                             .password(encoder.encode(PASSWORD))
                             .roleId(createListRole(applicationRole))
+                            .timestamp(new Timestamp(System.currentTimeMillis()))
                             .build());
         }
     }
