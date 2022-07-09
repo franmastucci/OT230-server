@@ -8,6 +8,7 @@ import com.alkemy.ong.models.response.SlidesBasicResponse;
 import java.io.IOException;
 import java.util.List;
 
+
 public interface SlideService {
 
     SlideResponse details(Long id) throws SlideNotFoundException;

@@ -24,7 +24,6 @@ public class NewsRequest {
 
 	@NotBlank(message = "Image can't be null or empty")
 	private String image;
-	
 	@NotNull(message = "CategoryId can't be null")
 	private Long categoryId;	
 
