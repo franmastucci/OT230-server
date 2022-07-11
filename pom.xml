@@ -72,6 +72,7 @@
             <version>5.6.0</version>
             <type>jar</type>
         </dependency>
+
         <!-- swagger-->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -83,8 +84,13 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>3.0.0</version>
         </dependency>
-  
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-bean-validators</artifactId>
+            <version>3.0.0</version>
+        </dependency>
         <!-- end swagger-->
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
@@ -110,12 +116,6 @@
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>3.0.0</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
     <build>
