@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alkemy.ong.models.entity.MemberEntity;
+import com.alkemy.ong.models.response.MemberPageResponse;
+import com.alkemy.ong.models.response.NewsPageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -62,5 +65,13 @@ public class NewsMapper {
 		});
 		
 		return newsResponseList;
+	}
+
+	public NewsPageResponse entityPageToPageResponse(List<NewsEntity> news, String previous, String next) {
+		return NewsPageResponse.builder()
+				.news(listNewsResponse(news))
+				.previous(previous)
+				.next(next)
+				.build();
 	}
 }

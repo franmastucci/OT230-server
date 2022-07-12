@@ -2,7 +2,18 @@ package com.alkemy.ong.service.impl;
 
 import java.util.List;
 
+import com.alkemy.ong.models.entity.CategoryEntity;
+import com.alkemy.ong.models.entity.MemberEntity;
+import com.alkemy.ong.models.entity.UserEntity;
+import com.alkemy.ong.models.response.CategoryPageResponse;
+import com.alkemy.ong.models.response.NewsPageResponse;
+import com.alkemy.ong.models.response.UsersPaginationResponse;
+import com.alkemy.ong.utils.ClassUtil;
+import com.alkemy.ong.utils.PaginationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.ong.exception.OrgNotFoundException;
@@ -13,14 +24,18 @@ import com.alkemy.ong.models.response.NewsResponse;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
 
+import static com.alkemy.ong.utils.ApiConstants.PATH_MEMBERS;
+
 @Service
-public class NewsServiceImpl implements NewsService {
+public class NewsServiceImpl extends ClassUtil<NewsEntity, Long, NewsRepository> implements NewsService {
 
 	@Autowired
 	NewsRepository newsRepository;
 	
 	@Autowired
 	NewsMapper newsMapper;
+
+	private static final String PATH_NEWS = "/news?page=%d";
 	
 	@Override
 	public NewsResponse getNewsById(Long id) {
@@ -61,5 +76,18 @@ public class NewsServiceImpl implements NewsService {
 		List<NewsEntity> news = newsRepository.findAll();
 		List<NewsResponse> newsResponse = newsMapper.listNewsResponse(news);
 		return newsResponse;
+	}
+
+	@Override
+	public NewsPageResponse getPaginationNews(Integer numberOfPage) {
+		if(numberOfPage < 1) {
+			throw new OrgNotFoundException("Page not found");
+		}
+
+		Page<NewsEntity> page = getPage(numberOfPage);
+		String previous = getPrevious(PATH_NEWS, numberOfPage);
+		String next = getNext(page, PATH_NEWS, numberOfPage);
+
+		return newsMapper.entityPageToPageResponse(page.getContent(), previous, next);
 	}
 }

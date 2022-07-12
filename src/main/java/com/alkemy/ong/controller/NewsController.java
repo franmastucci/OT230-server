@@ -7,19 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.alkemy.ong.models.request.NewsRequest;
 import com.alkemy.ong.service.NewsService;
 
 import lombok.NonNull;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/news")
@@ -33,8 +28,12 @@ public class NewsController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	@GetMapping()
-	ResponseEntity<?> getAllNews(){
-		return new ResponseEntity<>(newsServ.getNewsList(), HttpStatus.OK);
+	ResponseEntity<?> getAllNews(@RequestParam Optional<Integer> page){
+		if (page.isPresent()){
+			return new ResponseEntity<>(newsServ.getPaginationNews(page.get()), HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(newsServ.getNewsList(), HttpStatus.OK);
+		}
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
