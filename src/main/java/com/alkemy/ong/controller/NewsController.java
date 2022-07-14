@@ -23,6 +23,8 @@ import lombok.NonNull;
 
 import java.util.Optional;
 
+import static com.alkemy.ong.utils.ApiConstants.BOTH;
+
 @RestController
 @RequestMapping("/news")
 @Api(value = "News Controller", description = "Crud news, list, search by id and search comments for news")
@@ -47,7 +49,7 @@ public class NewsController {
 		}
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
+	@PreAuthorize(BOTH)
 	@GetMapping(path = "/{id}")
 	@ApiOperation(value = "Find By Id", notes = "Return a NewsResponse")
 	@ApiResponses(value = {
@@ -86,7 +88,7 @@ public class NewsController {
 		return new ResponseEntity<>(newsServ.removeNews(id), HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') OR (hasRole('ROLE_USER'))")
+	@PreAuthorize(BOTH)
 	@GetMapping(path = "/{id}/comments")
 	@ApiOperation(value = "Find coments by news Id",
 			notes = "Return a coment list")

@@ -9,5 +9,6 @@ public interface ApiConstants {
    //Path
 
    String PATH_MEMBERS = "/get-all?page=%d";
+   String PATH_TESTIMONIALS = "/get-all?page=%d";
 
 }

@@ -38,7 +38,7 @@ public class SlideMapper {
 
     public List<SlidesBasicResponse> toBasicListResponse(List<SlideEntity> entities) {
         return entities.stream()
-                .map(slideEntity -> toBasicResponse(slideEntity))
+                .map(this::toBasicResponse)
                 .collect(Collectors.toList());
     }
 
