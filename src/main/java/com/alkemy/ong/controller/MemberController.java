@@ -113,6 +113,7 @@ public class MemberController {
 
    @DeleteMapping(path = "/{id}")
    @PreAuthorize(BOTH)
+   @Operation(summary = "DELETE Member")
    public ResponseEntity<Void> deleteMember(@PathVariable("id") @ApiParam(
                                                                     name = "ID",
                                                                     type = "Long",
