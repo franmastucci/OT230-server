@@ -41,8 +41,8 @@ public class TestimonialController {
             ", replacing the one that was in that ID")
     @PutMapping("/{id}")
     @ApiResponses({
-    @ApiResponse(code = 201, message = "CREATED"),
-    @ApiResponse(code = 404, message = "Testimonial ID is not found")})
+        @ApiResponse(code = 200, message = "OK"),
+        @ApiResponse(code = 404, message = "Testimonial ID is not found")})
     public ResponseEntity<TestimonialResponse> updateTestimonial(
                                                         @PathVariable Long id,
                                                         @Valid @RequestBody TestimonialRequest testimonial){
@@ -51,13 +51,24 @@ public class TestimonialController {
 
     }
 
+    @ApiOperation(value = "Delete a testimonial", notes = "Delete a testimonial by ID provided")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Testimonial deleted"),
+            @ApiResponse(code = 404, message = "Testimonial ID is not found")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTestimonial(@PathVariable Long id){
 
         testimonialService.deleteTestimonial(id);
-        return new ResponseEntity<>("Testemional deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Testimonial deleted", HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Get all testimonials", notes = "Gets testimonials per page, each page contains 10" +
+            " testimonials")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "ERROR")
+    })
     @GetMapping(path = "/get-all")
     @PreAuthorize(ROLE_USER)
     public ResponseEntity<TestimonialPageResponse> getTestimonials(@RequestParam(defaultValue = "1") Integer page) {

@@ -1,6 +1,7 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.exception.OrgNotFoundException;
+import com.alkemy.ong.exception.TestimonialsNotFound;
 import com.alkemy.ong.models.entity.MemberEntity;
 import com.alkemy.ong.models.entity.TestimonialEntity;
 import com.alkemy.ong.models.mapper.TestimonialMapper;
@@ -39,7 +40,7 @@ public class TestimonialServiceImpl extends ClassUtil<TestimonialEntity, Long, T
     public TestimonialResponse updateTestimonial(Long id, TestimonialRequest testimonialRequest) {
 
         TestimonialEntity testimonialEntity = testimonialRepository.findById(id)
-                        .orElseThrow(() -> new OrgNotFoundException("Testimonial not found"));
+                        .orElseThrow(() -> new TestimonialsNotFound("Testimonial not found"));
 
         TestimonialEntity updateEntity = testimonialMapper.updateTestimonial(
                         testimonialEntity, testimonialRequest);
@@ -53,7 +54,7 @@ public class TestimonialServiceImpl extends ClassUtil<TestimonialEntity, Long, T
     @Override
     public void deleteTestimonial(Long id) {
         TestimonialEntity entity = testimonialRepository.findById(id)
-                                    .orElseThrow(() -> new OrgNotFoundException("Testimonial not found"));
+                                    .orElseThrow(() -> new TestimonialsNotFound("Testimonial not found"));
         testimonialRepository.delete(entity);
     }
 
