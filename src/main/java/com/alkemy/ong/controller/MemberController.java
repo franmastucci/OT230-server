@@ -115,9 +115,9 @@ public class MemberController {
    @PreAuthorize(BOTH)
    @Operation(summary = "DELETE Member")
    public ResponseEntity<Void> deleteMember(@PathVariable("id") @ApiParam(
-                                                                    name = "ID",
+                                                                    name = "id",
+                                                                     value = "ID of the member requested",
                                                                     type = "Long",
-                                                                    value = "ID of the member requested",
                                                                     example = "1",
                                                                     required = true) Long id) {
       memberService.deleteMember(id);
