@@ -35,6 +35,9 @@ public class TestimonialController {
                                                         @Valid @RequestBody TestimonialRequest testimonial){
         return new ResponseEntity<>(testimonialService.createTestimonial(testimonial), HttpStatus.CREATED);
     }
+
+    @ApiOperation(value = "Update a testimonial", notes = "Update a Testimonial using an ID and a TestimonialRequest" +
+            ", replacing the one that was in that ID")
     @PutMapping("/{id}")
     public ResponseEntity<TestimonialResponse> updateTestimonial(
                                                         @PathVariable Long id,
