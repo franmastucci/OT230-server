@@ -4,9 +4,7 @@ import com.alkemy.ong.models.request.TestimonialRequest;
 import com.alkemy.ong.models.response.TestimonialPageResponse;
 import com.alkemy.ong.models.response.TestimonialResponse;
 import com.alkemy.ong.service.TestimonialService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,15 +28,21 @@ public class TestimonialController {
     @PostMapping
     @ApiOperation(value = "Create a Testimonial", notes = "Create a Testimonial using TestimonialRequest save in DB " +
             "and return a TestimonialResponse")
-    @ApiResponse(code = 201, message = "CREATED")
+    @ApiResponse(code = 200, message = "CREATED")
     public ResponseEntity<TestimonialResponse> createTestimonial(
-                                                        @Valid @RequestBody TestimonialRequest testimonial){
+                                                        @Valid @RequestBody @ApiParam(
+                                                                name = "Create a Testimonial",
+                                                                value = "TestimonialRequest",
+                                                                required = true)TestimonialRequest testimonial){
         return new ResponseEntity<>(testimonialService.createTestimonial(testimonial), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Update a testimonial", notes = "Update a Testimonial using an ID and a TestimonialRequest" +
             ", replacing the one that was in that ID")
     @PutMapping("/{id}")
+    @ApiResponses({
+    @ApiResponse(code = 201, message = "CREATED"),
+    @ApiResponse(code = 404, message = "Testimonial ID is not found")})
     public ResponseEntity<TestimonialResponse> updateTestimonial(
                                                         @PathVariable Long id,
                                                         @Valid @RequestBody TestimonialRequest testimonial){

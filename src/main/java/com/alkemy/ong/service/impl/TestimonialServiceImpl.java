@@ -14,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import static com.alkemy.ong.utils.ApiConstants.PATH_MEMBERS;
 import static com.alkemy.ong.utils.ApiConstants.PATH_TESTIMONIALS;
-import static org.springframework.data.support.PageableExecutionUtils.getPage;
 
 @Service
 public class TestimonialServiceImpl extends ClassUtil<TestimonialEntity, Long, TestimonialRepository> implements TestimonialService {
