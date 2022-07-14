@@ -41,11 +41,11 @@ public class TestimonialMapper {
                 .collect(Collectors.toList());
     }
 
-    public TestimonialPageResponse entityPage2PageResponse(List<TestimonialEntity> testimonials, String previus, String next){
+    public TestimonialPageResponse entityPage2PageResponse(List<TestimonialEntity> testimonials, String previous, String next){
         return TestimonialPageResponse.builder()
                 .testimonials(entities2ListResponse(testimonials))
                 .next(next)
-                .previous(previus)
+                .previous(previous)
                 .build();
     }
 }

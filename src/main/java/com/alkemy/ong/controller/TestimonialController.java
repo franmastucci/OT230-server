@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.alkemy.ong.utils.ApiConstants.ROLE_ADMIN;
-import static com.alkemy.ong.utils.ApiConstants.ROLE_USER;
+import static com.alkemy.ong.utils.ApiConstants.*;
 
 @RestController
 @Api(value = "Testimonial controller", description = "CRUD and Gets methods pertaining to Testimonials")
@@ -44,8 +43,14 @@ public class TestimonialController {
         @ApiResponse(code = 200, message = "OK"),
         @ApiResponse(code = 404, message = "Testimonial ID is not found")})
     public ResponseEntity<TestimonialResponse> updateTestimonial(
-                                                        @PathVariable Long id,
-                                                        @Valid @RequestBody TestimonialRequest testimonial){
+                                                        @PathVariable @ApiParam(
+                                                                name = "ID",
+                                                                value = "Testimonial ID"
+                                                        ) Long id,
+                                                        @Valid @RequestBody @ApiParam(
+                                                                name = "Update a Testimonial",
+                                                                value = "Testimonial Request"
+                                                        ) TestimonialRequest testimonial){
 
         return new ResponseEntity<>(testimonialService.updateTestimonial(id, testimonial),HttpStatus.OK);
 
@@ -70,7 +75,7 @@ public class TestimonialController {
             @ApiResponse(code = 403, message = "ERROR")
     })
     @GetMapping(path = "/get-all")
-    @PreAuthorize(ROLE_USER)
+    @PreAuthorize(BOTH)
     public ResponseEntity<TestimonialPageResponse> getTestimonials(@RequestParam(defaultValue = "1") Integer page) {
         return ResponseEntity.ok(testimonialService.pagination(page));
     }

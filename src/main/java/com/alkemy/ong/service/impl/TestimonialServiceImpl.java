@@ -60,7 +60,9 @@ public class TestimonialServiceImpl extends ClassUtil<TestimonialEntity, Long, T
 
     @Override
     public TestimonialPageResponse pagination(Integer numberOfPage) {
-        if (numberOfPage < 1) throw new RuntimeException("Resource not found");
+        if (numberOfPage < 1) {
+            throw new RuntimeException("Resource not found");
+        }
 
         Page<TestimonialEntity> page = getPage(numberOfPage);
         String previous = getPrevious(PATH_TESTIMONIALS, numberOfPage);
