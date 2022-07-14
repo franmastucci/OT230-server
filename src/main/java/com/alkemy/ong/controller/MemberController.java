@@ -94,8 +94,20 @@ public class MemberController {
                    content = @Content)
    })
 
-   public ResponseEntity<MemberResponse> updateMember(@PathVariable("id") Long id,
-                                            @RequestBody UpdateMemberRequest update) {
+   public ResponseEntity<MemberResponse> updateMember(@PathVariable("id")
+                                                         @ApiParam(
+                                                                 name = "id",
+                                                                 value = "Id of member",
+                                                                 type = "Long",
+                                                                 required = true)
+                                                         Long id,
+                                                      @RequestBody
+                                                         @ApiParam(
+                                                                  name = "Request Body",
+                                                                  value = "Member",
+                                                                  type = "application/json",
+                                                                  required = true)
+                                                         UpdateMemberRequest update) {
       return ResponseEntity.status(HttpStatus.OK).body(memberService.updateMember(id, update));
    }
 
