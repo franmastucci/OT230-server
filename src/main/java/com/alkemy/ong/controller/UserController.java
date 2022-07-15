@@ -1,6 +1,5 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.auth.config.seeder.DataBaseSeeder;
 import com.alkemy.ong.models.request.UserUpdateRequest;
 import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.service.UserService;
@@ -25,8 +24,7 @@ public class UserController {
    @Autowired
    private UserService userService;
 
-   @Autowired
-   private DataBaseSeeder seeder;
+
 
    
    @GetMapping

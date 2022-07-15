@@ -1,5 +1,6 @@
 package com.alkemy.ong.models.request;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
+@Builder
 public class AuthRequest {
     @NotNull
     @NotEmpty(message = "the email can't be null")
