@@ -32,12 +32,7 @@ public class ActivityController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable("id") @Valid @NotNull Long id, @Valid @RequestBody ActivityRequest request){
-        ActivityResponse response = null;
-        try {
-           response = activityService.update(id, request);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-        return ResponseEntity.ok(response);
+
+        return new ResponseEntity<>(activityService.update(id, request), HttpStatus.OK);
     }
 }

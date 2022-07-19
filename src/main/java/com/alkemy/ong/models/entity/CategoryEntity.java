@@ -45,5 +45,7 @@ public class CategoryEntity {
     private Timestamp timestamp;
 
     @Column(name = "soft_delete")
-    private boolean softDelete = Boolean.FALSE;
+    @Builder.Default
+    private Boolean softDelete = Boolean.FALSE;
+
 }
