@@ -13,7 +13,7 @@ ONG-java
 | Cristian Aguirre        | <https://github.com/Cristianaaguirre> |
 | Franco Tonanes          | <https://github.com/FrancoTonanes>    |
 | Carlos Obando Casiano   | <https://github.com/caobandoc>        |
-| Facundo Da'Lessio       | <https://github.com/FacuDalessio>     |
+| Facundo D'alessio       | <https://github.com/FacuDalessio>     |
 | Mariano Martinez Rinaudo| <https://github.com/MartinezRinaudo>  |
 | Adrian Olij             | <https://github.com/AdrianOlij>       |
 
