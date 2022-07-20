@@ -26,7 +26,8 @@ public class GlobalExceptionHandler {
            UserNotFoundException.class,
            OrgNotFoundException.class,
            MemberNotFoundException.class,
-           ActivityNotFoundException.class
+           ActivityNotFoundException.class,
+           SlideNotFoundException.class
    })
    @ResponseBody
    protected ExceptionDetails notFoundHandler(Exception exception, HttpServletRequest request) {

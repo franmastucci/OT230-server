@@ -166,9 +166,4 @@ public abstract class ContextTests {
     protected String generateEmail() {
         return String.format("%s@%s", getUniqueId(), "test.com");
     }
-
-
-
-
-
 }
