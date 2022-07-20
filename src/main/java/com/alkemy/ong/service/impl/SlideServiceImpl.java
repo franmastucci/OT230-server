@@ -10,6 +10,7 @@ import com.alkemy.ong.models.response.SlidesBasicResponse;
 import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.SlideService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class SlideServiceImpl implements SlideService {
                 .orElseThrow(() -> new SlideNotFoundException("Slide ID not found"));
     }
 
+    @Transactional
     @Override
     public SlideResponse update(Long id, SlideRequest slideRequest) throws SlideNotFoundException, IOException {
         SlideEntity slideObteined = getById(id);

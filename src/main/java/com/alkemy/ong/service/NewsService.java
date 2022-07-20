@@ -2,6 +2,7 @@ package com.alkemy.ong.service;
 
 import java.util.List;
 
+import com.alkemy.ong.models.response.NewsPageResponse;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.ong.models.request.NewsRequest;
@@ -15,4 +16,5 @@ public interface NewsService {
 	NewsResponse createNews(NewsRequest newsRequest);
 	NewsResponse updateNews(Long id, NewsRequest newsRequest);
 	String removeNews(Long id);
+	NewsPageResponse getPaginationNews(Integer numberOfPage);
 }
