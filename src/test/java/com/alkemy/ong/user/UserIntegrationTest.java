@@ -24,10 +24,10 @@ public class UserIntegrationTest extends ContextTests {
 
         mockMvc.perform(get(URL_USER).header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("..firstName", notNullValue()))
-                .andExpect(jsonPath("..lastNane", notNullValue()))
-                .andExpect(jsonPath("..email", notNullValue()))
-                .andExpect(jsonPath("..photo", notNullValue()))
+                .andExpect(jsonPath("$..firstName", notNullValue()))
+                .andExpect(jsonPath("$..lastName", notNullValue()))
+                .andExpect(jsonPath("$..email", notNullValue()))
+                .andExpect(jsonPath("$..photo", notNullValue()))
                 .andExpect(status().isOk());
     }
 

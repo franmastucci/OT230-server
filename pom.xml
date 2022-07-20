@@ -70,6 +70,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <artifactId>spring-security-test</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <artifactId>h2</artifactId>
             <groupId>com.h2database</groupId>
             <scope>test</scope>
@@ -98,6 +103,10 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sendgrid</groupId>
