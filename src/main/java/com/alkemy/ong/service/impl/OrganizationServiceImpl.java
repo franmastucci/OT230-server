@@ -52,6 +52,4 @@ public class OrganizationServiceImpl implements OrganizationService {
         
         return organizationMapper.entityToResponse(entity);
     }
-
-    
 }
