@@ -2,7 +2,6 @@ package com.alkemy.ong.contact;
 
 import com.alkemy.ong.context.ContactContextTest;
 import com.alkemy.ong.models.entity.ContactEntity;
-import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
