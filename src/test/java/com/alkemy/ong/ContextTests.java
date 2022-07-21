@@ -110,7 +110,7 @@ public abstract class ContextTests {
         return userRepository.save(user);
     }
 
-    private void saveAdminUser() {
+    protected void saveAdminUser() {
         userRepository.save(buildUser(
                 "Felipe",
                 "Pettinato",
