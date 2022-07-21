@@ -14,19 +14,18 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
+import static com.alkemy.ong.utils.ApiConstants.BOTH;
 import static com.alkemy.ong.utils.ApiConstants.ROLE_ADMIN;
 
 @RestController
 @RequestMapping(path = "/users")
-@PreAuthorize(ROLE_ADMIN)
 public class UserController {
 
    @Autowired
    private UserService userService;
 
 
-
-   
+   @PreAuthorize(ROLE_ADMIN)
    @GetMapping
    public ResponseEntity<?> getAllUsers(@RequestParam Optional<Integer> page ){
 	   if(page.isPresent()) {
@@ -42,7 +41,7 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
    }
 
-   @DeleteMapping(path = "/{id}")
+   @DeleteMapping("/{id}")
    public ResponseEntity<Void> deleteUser(@PathVariable("id") @Valid @NotNull Long id) {
       userService.deleteUser(id);
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
