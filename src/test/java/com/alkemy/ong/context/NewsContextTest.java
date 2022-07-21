@@ -8,6 +8,7 @@ import com.alkemy.ong.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 public abstract class NewsContextTest extends ContextTests {
 
@@ -30,16 +31,28 @@ public abstract class NewsContextTest extends ContextTests {
         return news;
     }
 
-    protected NewsEntity createNewsParams(String name, String content, String image, Long categoryId) throws Exception{
+    protected NewsEntity createNewsParams(Long categoryId) throws Exception{
         NewsEntity news =
                 NewsEntity.builder().
-                        name(name).
-                        content(content).
-                        image(image).
+                        name(String.format("%s_%s", UUID.randomUUID().toString().substring(0, 5), System.currentTimeMillis() / 1000)).
+                        content(String.format("%s_%s", UUID.randomUUID().toString().substring(0, 5), System.currentTimeMillis() / 1000)).
+                        image(String.format("%s_%s", UUID.randomUUID().toString().substring(0, 5), System.currentTimeMillis() / 1000)).
                         lastModification(new Timestamp(System.currentTimeMillis())).
                         categoryId(categoryId).
                         build();
         newsRepository.save(news);
+        return news;
+    }
+
+    protected NewsEntity createNewsParamsNoSave(Long categoryId) throws Exception{
+        NewsEntity news =
+                NewsEntity.builder().
+                        name(String.format("%s_%s", UUID.randomUUID().toString().substring(0, 5), System.currentTimeMillis() / 1000)).
+                        content(String.format("%s_%s", UUID.randomUUID().toString().substring(0, 5), System.currentTimeMillis() / 1000)).
+                        image(String.format("%s_%s", UUID.randomUUID().toString().substring(0, 5), System.currentTimeMillis() / 1000)).
+                        lastModification(new Timestamp(System.currentTimeMillis())).
+                        categoryId(categoryId).
+                        build();
         return news;
     }
 

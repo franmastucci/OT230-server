@@ -4,13 +4,9 @@ import com.alkemy.ong.context.NewsContextTest;
 import com.alkemy.ong.models.entity.CommentEntity;
 import com.alkemy.ong.models.entity.NewsEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.jdbc.Sql;
-
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -54,13 +50,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
      public void shouldReturnCreatedStatusAndNewsResponseWhenRoleAdminAreValid() throws Exception{
+        NewsEntity news = createNewsParamsNoSave(1L);
 
         mockMvc.perform(post(URL_CONTROLLER).header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-                .content(createRequest("news test", "content test", "imageTest", 1L))
+                .content(createRequest(news.getName(), news.getContent(), news.getImage(), 1L))
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.name", equalTo("news test")))
-                .andExpect(jsonPath("$.content", equalTo("content test")))
-                .andExpect(jsonPath("$.image", equalTo("imageTest")))
+                .andExpect(jsonPath("$.name", equalTo(news.getName())))
+                .andExpect(jsonPath("$.content", equalTo(news.getContent())))
+                .andExpect(jsonPath("$.image", equalTo(news.getImage())))
                 .andExpect(jsonPath("$.categoryId", equalTo(1)))
                 .andExpect(status().isCreated());
 
@@ -88,14 +85,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     public void shouldReturnNewsById() throws Exception{
-        NewsEntity news = createNewsParams("find by id test", "content find by id", "image find by id", 1L);
+        NewsEntity news = createNewsParams(1L);
 
         mockMvc.perform(get(URL_CONTROLLER + "/" + news.getId())
                 .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.name", equalTo("find by id test")))
-                .andExpect(jsonPath("$.content", equalTo("content find by id")))
-                .andExpect(jsonPath("$.image", equalTo("image find by id")))
+                .andExpect(jsonPath("$.name", equalTo(news.getName())))
+                .andExpect(jsonPath("$.content", equalTo(news.getContent())))
+                .andExpect(jsonPath("$.image", equalTo(news.getImage())))
                 .andExpect(jsonPath("$.categoryId", equalTo(1)))
                 .andExpect(status().isOk());
 
@@ -111,14 +108,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     public void shouldReturnOkStatusAndNewsResponseUpdateWhenRoleAdminAreValid() throws Exception{
-        NewsEntity news = createNewsParams("update test", "content update", "image update", 1L);
+        NewsEntity news = createNewsParams(1L);
+        NewsEntity newsUpdate = createNewsParamsNoSave(1L);
         mockMvc.perform(put(URL_CONTROLLER + "/" + news.getId())
                 .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-                .content(createRequest("news update", "content update", "image update", 2L))
+                .content(createRequest(newsUpdate.getName(), newsUpdate.getContent(), newsUpdate.getImage(), 2L))
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.name", equalTo("news update")))
-                .andExpect(jsonPath("$.content", equalTo("content update")))
-                .andExpect(jsonPath("$.image", equalTo("image update")))
+                .andExpect(jsonPath("$.name", equalTo(newsUpdate.getName())))
+                .andExpect(jsonPath("$.content", equalTo(newsUpdate.getContent())))
+                .andExpect(jsonPath("$.image", equalTo(newsUpdate.getImage())))
                 .andExpect(jsonPath("$.categoryId", equalTo(2)))
                 .andExpect(status().isOk());
     }
@@ -134,7 +132,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
      @Test
      public void shouldReturnForbiddenStatusWhenRoleAdminAreNotValidInUpdate() throws Exception{
-         NewsEntity news = createNewsParams("forbidden update", "content forbidden", "image forbidden", 1L);
+         NewsEntity news = createNewsParams(1L);
          mockMvc.perform(put(URL_CONTROLLER + "/" + news.getId())
                          .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
                          .content(createRequest("news update", "content update", "image update", 2L))
@@ -144,7 +142,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     public void shouldReturnOkStatusWhenAdminRoleAreValidDeleteNews() throws Exception{
-        NewsEntity news = createNewsParams("delete test", "content delete", "image delete", 1L);
+        NewsEntity news = createNewsParams(1L);
 
         mockMvc.perform(delete(URL_CONTROLLER + "/" + news.getId())
                 .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
@@ -162,7 +160,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
      @Test
      public void shouldReturnForbiddenStatusWhenAdminRoleAreNotValidDeleteNews() throws Exception{
-         NewsEntity news = createNewsParams("delete forbidden", "content delete forbidden", "image delete forbidden", 1L);
+         NewsEntity news = createNewsParams(1L);
 
          mockMvc.perform(delete(URL_CONTROLLER + "/" + news.getId())
                          .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
@@ -172,7 +170,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     public void shouldReturnCommentsListAndStatusOk() throws Exception{
-        NewsEntity news = createNewsParams("coments test", "content comments", "image comments", 1L);
+        NewsEntity news = createNewsParams(1L);
         CommentEntity comment = createComment(news);
 
         mockMvc.perform(get(URL_CONTROLLER + "/" + news.getId() + "/comments")
