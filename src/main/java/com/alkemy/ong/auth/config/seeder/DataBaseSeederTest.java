@@ -52,7 +52,7 @@ public class DataBaseSeederTest {
             createUsers();
         }
 
-        if(userRepository.findAll().isEmpty())
+        if(membersRepository.findAll().isEmpty())
             createMembers();
     }
 
