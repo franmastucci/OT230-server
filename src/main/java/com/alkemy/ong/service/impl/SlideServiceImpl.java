@@ -105,7 +105,8 @@ public class SlideServiceImpl implements SlideService {
                     listOrganization.add(slideEntity);
                 }
             }
-        } else {
+        }
+        if (listOrganization.isEmpty()){
             throw new SlideNotFoundException("Slide list is Empty");
         }
         Collections.sort(listOrganization, Comparator.comparing(SlideEntity::getSort));
