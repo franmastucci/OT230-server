@@ -27,6 +27,7 @@ class SlideIntegrationTest extends SlideContexTest {
     @Test
     public void shouldReturnOKStatusCodeAndAllSlideListWhenRoleAdminIsValid() throws Exception {
         // GET all
+        SlideEntity slide = createSlide();
         mockMvc.perform(get(URL_SLIDE)
                         .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
                         .contentType(MediaType.APPLICATION_JSON))
@@ -120,6 +121,7 @@ class SlideIntegrationTest extends SlideContexTest {
     @Test
     public void shouldReturnNotFoundStatusCodeWhenGetSlideDetailsByIdNonExistAndRoleAdminIsValid() throws Exception {
         // GET slide details by id
+        // Id not found
         mockMvc.perform(get(URL_SLIDE + "/" + -1)
                         .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
                         .contentType(MediaType.APPLICATION_JSON))
@@ -136,6 +138,99 @@ class SlideIntegrationTest extends SlideContexTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
+
+    @Test
+    public void shouldReturnNotFoundStatusCodeWhenFindOrganizationIdAndRoleStandardUserIsValid() throws Exception {
+        // GET by organization id
+        // Id not found
+
+        mockMvc.perform(get(URL_SLIDE +"/organization/" + -1)
+                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message", equalTo("Slide list is Empty")))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void shouldReturnForbiddenStatusCodeWhenFindOrganizationIdAndRoleStandardUserIsInvalid() throws Exception {
+        // GET by organization id
+        // Invalid Role
+        mockMvc.perform(get(URL_SLIDE +"/organization/" + 1)
+                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
+
+    //POST errors
+    @Test
+    public void shouldReturnForbiddenStatusCodeWhenRoleAdminIsInvalid() throws Exception {
+        //POST Slide
+        //Invalid Role
+        mockMvc.perform(post(URL_SLIDE)
+                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                        .content(createRequest(
+                                Base64.URL,
+                                "Slide Post test",
+                                1,
+                                3L))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
+
+    // PUT error
+
+    @Test
+    public void shouldReturnNotFoundStatusCodeWhenTryUpdateSlideWithIdNonExistAndRoleAdminIsValid() throws Exception {
+        //Put Slide
+        //Id non exist
+        mockMvc.perform(put(URL_SLIDE + "/" + -1)
+                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                        .content(createRequest(
+                                Base64.URL_UPDATE,
+                                "Slide Post test update",
+                                2,
+                                2L))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void shouldReturnForbiddenStatusCodeWhenTryUpdateSlideAndTheRoleAdminIsInvalid() throws Exception {
+        //Put Slide
+        //Invalid role
+        mockMvc.perform(put(URL_SLIDE + "/" + 1)
+                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                        .content(createRequest(
+                                Base64.URL_UPDATE,
+                                "Slide Post test update",
+                                2,
+                                2L))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
+
+    //DELETE errors
+    @Test
+    public void shouldReturnNotFoundStatusCodeWhenTryDeleteSlideAndRoleAdminIsValid() throws Exception {
+        //Delete Slide
+        //Id non exist
+        mockMvc.perform(delete(URL_SLIDE + "/" + -1)
+                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message", equalTo("No slide found with that id")))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void shouldReturnForbiddenStatusCodeWhenTryDeleteSlideAndRoleAdminIsNotValid() throws Exception {
+        //Delete Slide
+        //Invalid role
+        mockMvc.perform(delete(URL_SLIDE + "/" + 1)
+                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
+
 
 
     private String createRequest(String urlBase64, String text, Integer sort, Long organizationId) throws JsonProcessingException {
