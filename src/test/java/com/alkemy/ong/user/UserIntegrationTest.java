@@ -46,10 +46,25 @@ public class UserIntegrationTest extends ContextTests {
     }
 
     @Test
-    public void should_return_OK_status_code_and_a_list_of_ten_users_per_page_when_admin_is_logged() throws Exception {
+    public void should_return_OK_status_code_when_param_is_1_and_a_list_of_ten_users_per_page_when_admin_is_logged() throws Exception {
 
 
         mockMvc.perform(get(URL_USER).param("page", String.valueOf(1))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(jsonPath("$..firstName", notNullValue()))
+                .andExpect(jsonPath("$..lastName", notNullValue()))
+                .andExpect(jsonPath("$..email", notNullValue()))
+                .andExpect(jsonPath("$..photo", notNullValue()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void should_return_OK_status_code_and_a_list_of_ten_users_per_page_when_admin_is_logged() throws Exception {
+
+
+        mockMvc.perform(get(URL_USER)
                 .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
@@ -65,7 +80,7 @@ public class UserIntegrationTest extends ContextTests {
 
         UserEntity user = saveAdminRandomEmail();
         mockMvc.perform(patch(URL_USER + "/" + user.getId())
-                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
                 .content(createRequest(
                         "Facu",
                         "Dalesio",
@@ -92,9 +107,9 @@ public class UserIntegrationTest extends ContextTests {
     public void should_return_FORBIDDEN_status_code_when_standard_user_is_logged_trying_getAllUsers() throws Exception {
 
         mockMvc.perform(get(URL_USER + URL_USER)
-                    .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
-                    .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden());
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is);
     }
 
     @Test
@@ -113,6 +128,34 @@ public class UserIntegrationTest extends ContextTests {
                     .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void should_return_NOT_FOUND_status_code_when_admin_try_delete_a_not_existent_id() throws Exception{
+
+        mockMvc.perform(delete(URL_USER + "/1000")
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void should_return_FORBIDDEN_status_code_when_User_try_delete_user() throws Exception {
+
+        UserEntity user = saveStandardUserRandomEmail();
+        mockMvc.perform(delete(URL_USER + "/" + user.getId())
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void should_return_NOT_FOUND_status_code_when_Admin_try_patch_a_not_existent_id() throws Exception {
+
+        mockMvc.perform(patch(URL_USER + "/1000")
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     private String createRequest(String firstName, String lastName, String password, String photo) throws JsonProcessingException {

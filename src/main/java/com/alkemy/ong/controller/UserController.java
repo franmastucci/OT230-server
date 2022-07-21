@@ -41,12 +41,14 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
    }
 
+   @PreAuthorize(ROLE_ADMIN)
    @DeleteMapping("/{id}")
    public ResponseEntity<Void> deleteUser(@PathVariable("id") @Valid @NotNull Long id) {
       userService.deleteUser(id);
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
    }
 
+   @PreAuthorize(ROLE_ADMIN)
    @GetMapping(path = "/users")
    public ResponseEntity<List<UserDetailsResponse>> getUsers() {
       return ResponseEntity.ok(userService.getUsers());
