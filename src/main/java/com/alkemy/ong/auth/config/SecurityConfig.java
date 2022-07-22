@@ -58,8 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) {
 		web.ignoring()
-				.antMatchers("/auth/register","/auth/login")
-				.antMatchers("/users/**");
+				.antMatchers("/auth/register","/auth/login");
 	}
 
     
@@ -74,9 +73,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/contacts/**").hasRole(RoleEnum.USER.getSimpleRoleName())
 
 				//organization
-                .antMatchers(HttpMethod.GET, "/organization/public").permitAll()
-                .antMatchers(HttpMethod.PUT, "/organization/public").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-                .antMatchers(HttpMethod.POST, "/organization").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.GET, "/organizations/public").permitAll()
+                .antMatchers(HttpMethod.PUT, "/organizations/public/**").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/organizations").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
 
                 //slides
                 .antMatchers(HttpMethod.GET, "/slides").hasRole(RoleEnum.ADMIN.getSimpleRoleName())

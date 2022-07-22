@@ -1,6 +1,5 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.auth.config.seeder.DataBaseSeeder;
 import com.alkemy.ong.models.request.UserUpdateRequest;
 import com.alkemy.ong.models.response.UserDetailsResponse;
 import com.alkemy.ong.service.UserService;
@@ -15,19 +14,18 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
+import static com.alkemy.ong.utils.ApiConstants.BOTH;
 import static com.alkemy.ong.utils.ApiConstants.ROLE_ADMIN;
 
 @RestController
+
 @RequestMapping(path = "/users")
-@PreAuthorize(ROLE_ADMIN)
 public class UserController {
 
    @Autowired
    private UserService userService;
 
-
-
-   
+   @PreAuthorize(ROLE_ADMIN)
    @GetMapping
    public ResponseEntity<?> getAllUsers(@RequestParam Optional<Integer> page ){
 	   if(page.isPresent()) {
@@ -36,6 +34,7 @@ public class UserController {
 	return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
    }
 
+   @PreAuthorize(ROLE_ADMIN)
    @PatchMapping(path = "/{id}")
    public ResponseEntity<Void> updateUser(@PathVariable("id") @Valid @NotNull Long id,
                                     @RequestBody @Valid UserUpdateRequest request) {
@@ -43,12 +42,14 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
    }
 
-   @DeleteMapping(path = "/{id}")
+   @PreAuthorize(ROLE_ADMIN)
+   @DeleteMapping("/{id}")
    public ResponseEntity<Void> deleteUser(@PathVariable("id") @Valid @NotNull Long id) {
       userService.deleteUser(id);
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
    }
 
+   @PreAuthorize(ROLE_ADMIN)
    @GetMapping(path = "/users")
    public ResponseEntity<List<UserDetailsResponse>> getUsers() {
       return ResponseEntity.ok(userService.getUsers());

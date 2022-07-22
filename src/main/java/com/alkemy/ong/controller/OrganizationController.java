@@ -1,8 +1,10 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.models.entity.OrganizationEntity;
 import com.alkemy.ong.models.request.OrganizationRequest;
 import com.alkemy.ong.models.response.OrganizationResponse;
 import com.alkemy.ong.models.response.OrganizationResponseInfo;
+import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.service.OrganizationService;
 import java.util.List;
 import javax.validation.Valid;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("organization")
+@RequestMapping("organizations")
 public class OrganizationController {
 
     @Autowired
