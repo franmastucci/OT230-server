@@ -49,6 +49,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         
         entity = organizationMapper.updateEntity(entity, request);
         organizationRepository.save(entity);
+
+
         
         return organizationMapper.entityToResponse(entity);
     }

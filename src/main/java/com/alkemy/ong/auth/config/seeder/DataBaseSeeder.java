@@ -8,6 +8,7 @@ import com.alkemy.ong.models.entity.*;
 import com.alkemy.ong.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Profile("dev")
 public class DataBaseSeeder {
 
     @Autowired

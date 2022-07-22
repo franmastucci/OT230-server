@@ -22,7 +22,7 @@ public class CommentController {
     @Autowired
     CommentService commentServ;
 
-    @PreAuthorize(BOTH)
+    @PreAuthorize(ROLE_ADMIN)
     @GetMapping()
     public ResponseEntity<?>getComments() {
         return new ResponseEntity<>(commentServ.findAllComments(), HttpStatus.OK);

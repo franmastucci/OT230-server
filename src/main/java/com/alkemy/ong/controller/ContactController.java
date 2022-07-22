@@ -14,6 +14,8 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
+import static com.alkemy.ong.utils.ApiConstants.ROLE_USER;
+
 @RestController
 @RequestMapping("/contacts")
 @RequiredArgsConstructor
@@ -21,15 +23,16 @@ public class ContactController {
 
    private final ContactService contactService;
 
-   @PostMapping
-   public ResponseEntity<Void> addContact(@RequestBody @Valid ContactRequest request) throws IOException {
-      contactService.addContact(request);
-      return ResponseEntity.status(HttpStatus.OK).build();
-   }
-
    @PreAuthorize("hasRole('ROLE_ADMIN')")
    @GetMapping
    public ResponseEntity<List<ContactResponse>> listContacts(){
       return ResponseEntity.ok(contactService.listContacts());
    }
+   @PostMapping
+   public ResponseEntity<Void> addContact(@RequestBody @Valid ContactRequest request) throws IOException {
+      contactService.addContact(request);
+      return ResponseEntity.status(HttpStatus.CREATED).build();
+   }
+
+
 }

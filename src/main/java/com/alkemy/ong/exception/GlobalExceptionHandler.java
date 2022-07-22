@@ -15,7 +15,8 @@ public class GlobalExceptionHandler {
 
    @ResponseStatus(HttpStatus.CONFLICT)
    @ExceptionHandler({
-      EmailExistsException.class
+      EmailExistsException.class,
+      NameExistsException.class
    })
    @ResponseBody
    protected ExceptionDetails conflictHandler(Exception exception, HttpServletRequest request) {
@@ -24,10 +25,13 @@ public class GlobalExceptionHandler {
 
    @ResponseStatus(HttpStatus.NOT_FOUND)
    @ExceptionHandler({
-         UserNotFoundException.class,
-         OrgNotFoundException.class,
-         MemberNotFoundException.class,
-         EntityNotFoundException.class
+      EntityNotFoundException.class,
+      UserNotFoundException.class,
+      OrgNotFoundException.class,
+      MemberNotFoundException.class,
+      ActivityNotFoundException.class,
+      SlideNotFoundException.class,
+           TestimonialsNotFound.class
    })
    @ResponseBody
    protected ExceptionDetails notFoundHandler(Exception exception, HttpServletRequest request) {
