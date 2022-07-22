@@ -18,16 +18,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Getter
 @Setter
-@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @SQLDelete(sql= "UPDATE organizations SET soft_delete = true WHERE organization_id=?")
 @Where(clause = "soft_delete=false")
 @Table(name = "organizations")
-@Builder
-@NoArgsConstructor 
-@AllArgsConstructor
-@Data
 public class OrganizationEntity {
 
     @Id
