@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
  class NewsIntegrationTests extends NewsContextTest {
 
-    public final static String URL_CONTROLLER = "/news";
+    public final static String URL_CONTROLLER = "/com/alkemy/ong/news";
 
     @Test
     public void shouldReturnNewsListPageWhenAdminRoleAreValid() throws Exception{

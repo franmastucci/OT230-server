@@ -44,7 +44,7 @@ public class TestimonialController {
         @ApiResponse(code = 404, message = "Testimonial ID is not found")})
     public ResponseEntity<TestimonialResponse> updateTestimonial(
                                                         @PathVariable @ApiParam(
-                                                                name = "ID",
+                                                                name = "id",
                                                                 value = "Testimonial ID"
                                                         ) Long id,
                                                         @Valid @RequestBody @ApiParam(
