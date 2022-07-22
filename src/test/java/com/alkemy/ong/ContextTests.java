@@ -2,7 +2,7 @@ package com.alkemy.ong;
 
 
 import com.alkemy.ong.auth.utility.RoleEnum;
-import com.alkemy.ong.context.UserContextTest;
+import com.alkemy.ong.context.InMemoryUserDetails;
 import com.alkemy.ong.models.entity.RoleEntity;
 import com.alkemy.ong.models.entity.UserEntity;
 import com.alkemy.ong.models.request.AuthRequest;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @RunWith(SpringRunner.class)
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = UserContextTest.class,
+        classes = InMemoryUserDetails.class,
         properties = "spring.main.allow-bean-definition-overriding=true")
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -62,7 +62,7 @@ public abstract class ContextTests {
 
 
 
-    @Before
+    @Before()
     public void setup() {
         createUserData();
         createRoles();
@@ -112,7 +112,7 @@ public abstract class ContextTests {
         return userRepository.save(user);
     }
 
-    protected void saveAdminUser() {
+    private void saveAdminUser() {
         userRepository.save(buildUser(
                 "Felipe",
                 "Pettinato",
@@ -168,4 +168,9 @@ public abstract class ContextTests {
     protected String generateEmail() {
         return String.format("%s@%s", getUniqueId(), "test.com");
     }
+
+
+
+
+
 }

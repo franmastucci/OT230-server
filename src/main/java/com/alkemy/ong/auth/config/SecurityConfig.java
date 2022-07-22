@@ -68,8 +68,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.disable()
 				.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
-				.antMatchers(HttpMethod.POST, "/contacts/**").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
-				.antMatchers(HttpMethod.GET, "/users").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(HttpMethod.PATCH,"/users/**").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(HttpMethod.DELETE,"/users/**").hasRole(RoleEnum.ADMIN.getSimpleRoleName())
+				.antMatchers(HttpMethod.POST, "/contacts/**").hasRole(RoleEnum.USER.getSimpleRoleName())
 
 				//organization
                 .antMatchers(HttpMethod.GET, "/organizations/public").permitAll()

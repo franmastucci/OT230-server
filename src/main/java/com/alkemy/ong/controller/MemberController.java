@@ -5,7 +5,6 @@ import com.alkemy.ong.models.request.UpdateMemberRequest;
 import com.alkemy.ong.models.response.MemberPageResponse;
 import com.alkemy.ong.models.response.MemberResponse;
 import com.alkemy.ong.service.MemberService;
-import com.amazonaws.services.pinpoint.model.ForbiddenException;
 import io.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -102,6 +101,7 @@ public class MemberController {
                                                                  required = true)
                                                          Long id,
                                                       @RequestBody
+                                                      @Valid
                                                          @ApiParam(
                                                                   name = "Request Body",
                                                                   value = "Member",

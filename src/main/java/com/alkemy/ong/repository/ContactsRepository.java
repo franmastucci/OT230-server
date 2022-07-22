@@ -12,7 +12,7 @@ import java.util.List;
 public interface ContactsRepository extends JpaRepository<ContactEntity, Long> {
 
    boolean existsByEmail(String email);
-
+   ContactEntity findByEmail(String email);
    @Query("SELECT c FROM ContactEntity c WHERE c.softDelete = false")
    List<ContactEntity> findBySoftDelete();
 }
