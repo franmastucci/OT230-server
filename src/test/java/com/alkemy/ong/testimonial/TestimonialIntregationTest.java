@@ -21,8 +21,8 @@ class TestimonialIntregationTest extends TestimonialContextTest {
     public void shouldReturnTestimonialsWhenRoleAdminIsValid() throws Exception {
         TestimonialEntity testimonial = createTestimonial();
         mockMvc.perform(get(URL_TESTIMONIAL + "/get-all")
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$..testimonials", notNullValue()))
                 .andExpect(status().isOk());
     }
@@ -31,8 +31,8 @@ class TestimonialIntregationTest extends TestimonialContextTest {
     public void shouldReturnTestimonialsWhenRoleStandardUserIsValid() throws Exception {
         TestimonialEntity testimonial = createTestimonial();
         mockMvc.perform(get(URL_TESTIMONIAL + "/get-all")
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$..testimonials", notNullValue()))
                 .andExpect(status().isOk());
     }
@@ -41,12 +41,12 @@ class TestimonialIntregationTest extends TestimonialContextTest {
     public void shouldReturnCreatedStatusCodeAndTestimonialBodyWhenRoleAdminAreValid() throws Exception {
 
         mockMvc.perform(post(URL_TESTIMONIAL)
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-                        .content(createRequest(
-                                "Testimonial post test",
-                                "url_image",
-                                "Content test"))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .content(createRequest(
+                        "Testimonial post test",
+                        "url_image",
+                        "Content test"))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id", notNullValue()))
                 .andExpect(jsonPath("$.name", equalTo("Testimonial post test")))
                 .andExpect(jsonPath("$.image", equalTo("url_image")))
@@ -59,8 +59,8 @@ class TestimonialIntregationTest extends TestimonialContextTest {
 
         TestimonialEntity testimonial = createTestimonial();
         mockMvc.perform(delete(URL_TESTIMONIAL + "/" + testimonial.getId())
-        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -69,7 +69,7 @@ class TestimonialIntregationTest extends TestimonialContextTest {
 
         TestimonialEntity testimonial = createTestimonial();
         mockMvc.perform(put(URL_TESTIMONIAL + "/" + testimonial.getId())
-        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
                 .content(createRequest(
                         "Testimonial post test",
                         "url_image",
@@ -87,8 +87,8 @@ class TestimonialIntregationTest extends TestimonialContextTest {
     public void shouldReturnNotFoundWhenRoleStandardUserIsValid() throws Exception {
         TestimonialEntity testimonial = createTestimonial();
         mockMvc.perform(get(URL_TESTIMONIAL + "/get-all").param("page", String.valueOf(-1))
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
@@ -96,12 +96,12 @@ class TestimonialIntregationTest extends TestimonialContextTest {
     public void shouldReturnForbiddenStatusCodeWhenRoleAdminIsInvalid() throws Exception {
         //Invalid role
         mockMvc.perform(post(URL_TESTIMONIAL)
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
-                        .content(createRequest(
-                                "Testimonial post test",
-                                "url_image",
-                                "Content test"))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                .content(createRequest(
+                        "Testimonial post test",
+                        "url_image",
+                        "Content test"))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
 
@@ -109,24 +109,25 @@ class TestimonialIntregationTest extends TestimonialContextTest {
     public void shouldReturnBadRequestStatusCodeWhenRoleAdminIsValid() throws Exception {
 
         mockMvc.perform(post(URL_TESTIMONIAL)
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-                        .content(createRequest(
-                                "",
-                                "url_image",
-                                "Content test"))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .content(createRequest(
+                        "",
+                        "url_image",
+                        "Content test"))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
+
     @Test
     public void shouldReturnBadRequestStatusCodeWhenNameIsNullAndRoleAdminIsValid() throws Exception {
 
         mockMvc.perform(post(URL_TESTIMONIAL)
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-                        .content(createRequest(
-                                null,
-                                "url_image",
-                                "Content test"))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .content(createRequest(
+                        null,
+                        "url_image",
+                        "Content test"))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
@@ -134,24 +135,25 @@ class TestimonialIntregationTest extends TestimonialContextTest {
     public void shouldReturnBadRequestStatusCodeWhenUrlImageIsNullAndRoleAdminIsValid() throws Exception {
 
         mockMvc.perform(post(URL_TESTIMONIAL)
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-                        .content(createRequest(
-                                "Name Testimonial",
-                                null,
-                                "Content test"))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .content(createRequest(
+                        "Name Testimonial",
+                        null,
+                        "Content test"))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
+
     @Test
     public void shouldReturnBadRequestStatusCodeWhenUrlImageIsBlankAndRoleAdminIsValid() throws Exception {
 
         mockMvc.perform(post(URL_TESTIMONIAL)
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-                        .content(createRequest(
-                                "Name Testimonial",
-                                "",
-                                "Content test"))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .content(createRequest(
+                        "Name Testimonial",
+                        "",
+                        "Content test"))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
@@ -159,24 +161,25 @@ class TestimonialIntregationTest extends TestimonialContextTest {
     public void shouldReturnBadRequestStatusCodeWhenUrlContentIsNullAndRoleAdminIsValid() throws Exception {
 
         mockMvc.perform(post(URL_TESTIMONIAL)
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-                        .content(createRequest(
-                                "Name Testimonial",
-                                "url_image",
-                                null))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .content(createRequest(
+                        "Name Testimonial",
+                        "url_image",
+                        null))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
+
     @Test
     public void shouldReturnBadRequestStatusCodeWhenUrlContentIsBlankAndRoleAdminIsValid() throws Exception {
 
         mockMvc.perform(post(URL_TESTIMONIAL)
-                        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-                        .content(createRequest(
-                                "Name Testimonial",
-                                "url_image",
-                                ""))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .content(createRequest(
+                        "Name Testimonial",
+                        "url_image",
+                        ""))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
@@ -185,8 +188,8 @@ class TestimonialIntregationTest extends TestimonialContextTest {
 
         TestimonialEntity testimonial = createTestimonial();
         mockMvc.perform(delete(URL_TESTIMONIAL + "/" + testimonial.getId())
-        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
-        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
 
@@ -194,8 +197,8 @@ class TestimonialIntregationTest extends TestimonialContextTest {
     public void should_return_NOT_FOUND_status_code_when_try_delete_a_not_existent_testimonialID() throws Exception {
 
         mockMvc.perform(delete(URL_TESTIMONIAL + "/1000")
-        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
-        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
@@ -208,11 +211,21 @@ class TestimonialIntregationTest extends TestimonialContextTest {
                         "Name Testimonial",
                         "url_image",
                         ""))
-        .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
-        .contentType(MediaType.APPLICATION_JSON))
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForStandardUser())
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    public void should_(){}
+    public void should_return_NOT_FOUND_status_code_when_testimonialId_is_not_existent_with_ROLE_ADMIN() throws Exception {
+
+        mockMvc.perform(put(URL_TESTIMONIAL + "/1000")
+                .header(HttpHeaders.AUTHORIZATION, BEARER + getAuthorizationTokenForAdminUser())
+                .content(createRequest(
+                        "Name Testimonial",
+                        "url_image",
+                        "test content"))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 }
