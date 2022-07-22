@@ -30,7 +30,8 @@ public class GlobalExceptionHandler {
       OrgNotFoundException.class,
       MemberNotFoundException.class,
       ActivityNotFoundException.class,
-      SlideNotFoundException.class
+      SlideNotFoundException.class,
+           TestimonialsNotFound.class
    })
    @ResponseBody
    protected ExceptionDetails notFoundHandler(Exception exception, HttpServletRequest request) {
